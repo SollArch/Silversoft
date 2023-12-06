@@ -9,14 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="094683f0-8402-4666-b75c-07cbd38c741b" name="Changes" comment="Created Event.cs">
-      <change afterPath="$PROJECT_DIR$/Entities/DTO/ChangePasswordDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Entities/DTO/ForgotPasswordDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Entities/DTO/UserForLoginDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Entities/DTO/UserForRegisterDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Silversoft/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Silversoft/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/Entities.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/Entities.csproj" afterDir="false" />
-    </list>
+    <list default="true" id="094683f0-8402-4666-b75c-07cbd38c741b" name="Changes" comment="Dto classes added" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -166,7 +159,7 @@
       <workItem from="1701896802511" duration="2072000" />
       <workItem from="1701898940471" duration="699000" />
       <workItem from="1701899702447" duration="384000" />
-      <workItem from="1701900121653" duration="1632000" />
+      <workItem from="1701900121653" duration="1978000" />
     </task>
     <task id="LOCAL-00001" summary="User class modified for requirements">
       <option name="closed" value="true" />
@@ -232,7 +225,55 @@
       <option name="project" value="LOCAL" />
       <updated>1701900847768</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add class to DTO folder">
+      <option name="closed" value="true" />
+      <created>1701901843139</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1701901843139</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Created ChangePasswordDto.cs">
+      <option name="closed" value="true" />
+      <created>1701901855336</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1701901855336</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Created ForgotPasswordDto.cs">
+      <option name="closed" value="true" />
+      <created>1701901867339</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1701901867339</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Created UserForLoginDto.cs">
+      <option name="closed" value="true" />
+      <created>1701901877209</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1701901877210</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Created UserForRegisterDto.cs">
+      <option name="closed" value="true" />
+      <created>1701901886547</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1701901886547</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Dto classes added">
+      <option name="closed" value="true" />
+      <created>1701901908425</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1701901908425</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -259,6 +300,12 @@
     <MESSAGE value="Ctf class created." />
     <MESSAGE value="Created Prize.cs" />
     <MESSAGE value="Created Event.cs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created Event.cs" />
+    <MESSAGE value="Add class to DTO folder" />
+    <MESSAGE value="Created ChangePasswordDto.cs" />
+    <MESSAGE value="Created ForgotPasswordDto.cs" />
+    <MESSAGE value="Created UserForLoginDto.cs" />
+    <MESSAGE value="Created UserForRegisterDto.cs" />
+    <MESSAGE value="Dto classes added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dto classes added" />
   </component>
 </project>
