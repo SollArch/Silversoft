@@ -1,11 +1,34 @@
+using Core.DependencyResolver;
+using Core.Extentions;
+using Core.Utilities.IoC;
+using Core.Utilities.Security.Encryption;
+using Core.Utilities.Security.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors();
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidIssuer = tokenOptions!.Issuer,
+        ValidAudience = tokenOptions.Audience,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+    };
+});
+builder.Services.AddDependencyResolvers(new ICoreModule[]
+{
+    new CoreModule()
+});
 
 var app = builder.Build();
 
@@ -17,9 +40,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseRouting();
 app.UseAuthorization();
-
+app.UseAuthentication();
+app.UseCors(corsPolicyBuilder => corsPolicyBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+app.ConfigureCustomExceptionMiddleware();
 app.MapControllers();
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 app.Run();
