@@ -7,7 +7,6 @@
     <ItemGroup>
       <Folder Include="Abstract\" />
       <Folder Include="Concrete\" />
-      <Folder Include="Constants\" />
       <Folder Include="DependencyResolver\Autofac\" />
       <Folder Include="ValidationRules\FluentValidation\" />
     </ItemGroup>
