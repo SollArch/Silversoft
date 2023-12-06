@@ -9,7 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="094683f0-8402-4666-b75c-07cbd38c741b" name="Changes" comment="Dto classes added" />
+    <list default="true" id="094683f0-8402-4666-b75c-07cbd38c741b" name="Changes" comment="Created SecuredOperation.cs">
+      <change afterPath="$PROJECT_DIR$/Business/Constants/Messages.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Business/Business.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Business/Business.csproj" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,9 +36,11 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock://C:/Projects/Silversoft/Core/Utilities/IoC/ServiceTool.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Core/obj/Debug/netstandard2.1/.NETStandard,Version=v2.1.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Silversoft/Entities/Concrete/Blog.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Entities/obj/Debug/netstandard2.1/.NETStandard,Version=v2.1.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7dd3deb2bf8249b7b37c65f501d3184c4198/0c/4bd5c8ac/IServiceProvider.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -159,7 +164,7 @@
       <workItem from="1701896802511" duration="2072000" />
       <workItem from="1701898940471" duration="699000" />
       <workItem from="1701899702447" duration="384000" />
-      <workItem from="1701900121653" duration="1978000" />
+      <workItem from="1701900121653" duration="2343000" />
     </task>
     <task id="LOCAL-00001" summary="User class modified for requirements">
       <option name="closed" value="true" />
@@ -273,7 +278,47 @@
       <option name="project" value="LOCAL" />
       <updated>1701901908425</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Add Core Project reference to Business Project">
+      <option name="closed" value="true" />
+      <created>1701902369703</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1701902369703</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Removed unused usings">
+      <option name="closed" value="true" />
+      <created>1701902414345</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1701902414345</updated>
+    </task>
+    <task id="LOCAL-00017" summary=".">
+      <option name="closed" value="true" />
+      <created>1701902460857</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1701902460857</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Created Dto classes">
+      <option name="closed" value="true" />
+      <created>1701902475371</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1701902475371</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Created SecuredOperation.cs">
+      <option name="closed" value="true" />
+      <created>1701902486147</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1701902486147</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,7 +340,6 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="User class modified for requirements" />
-    <MESSAGE value="." />
     <MESSAGE value="Blog class created." />
     <MESSAGE value="Ctf class created." />
     <MESSAGE value="Created Prize.cs" />
@@ -306,6 +350,11 @@
     <MESSAGE value="Created UserForLoginDto.cs" />
     <MESSAGE value="Created UserForRegisterDto.cs" />
     <MESSAGE value="Dto classes added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dto classes added" />
+    <MESSAGE value="Add Core Project reference to Business Project" />
+    <MESSAGE value="Removed unused usings" />
+    <MESSAGE value="." />
+    <MESSAGE value="Created Dto classes" />
+    <MESSAGE value="Created SecuredOperation.cs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created SecuredOperation.cs" />
   </component>
 </project>
