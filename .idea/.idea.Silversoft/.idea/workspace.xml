@@ -9,9 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="094683f0-8402-4666-b75c-07cbd38c741b" name="Changes" comment="Ctf class created.">
-      <change afterPath="$PROJECT_DIR$/Entities/Concrete/Prize.cs" afterDir="false" />
+    <list default="true" id="094683f0-8402-4666-b75c-07cbd38c741b" name="Changes" comment="Created Event.cs">
+      <change afterPath="$PROJECT_DIR$/Entities/DTO/ChangePasswordDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Entities/DTO/ForgotPasswordDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Entities/DTO/UserForLoginDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Entities/DTO/UserForRegisterDto.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Silversoft/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Silversoft/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/Entities.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/Entities.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,7 +166,7 @@
       <workItem from="1701896802511" duration="2072000" />
       <workItem from="1701898940471" duration="699000" />
       <workItem from="1701899702447" duration="384000" />
-      <workItem from="1701900121653" duration="530000" />
+      <workItem from="1701900121653" duration="1632000" />
     </task>
     <task id="LOCAL-00001" summary="User class modified for requirements">
       <option name="closed" value="true" />
@@ -212,7 +216,23 @@
       <option name="project" value="LOCAL" />
       <updated>1701900390089</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Created Prize.cs">
+      <option name="closed" value="true" />
+      <created>1701900748156</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1701900748156</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Created Event.cs">
+      <option name="closed" value="true" />
+      <created>1701900847768</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1701900847768</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -237,6 +257,8 @@
     <MESSAGE value="." />
     <MESSAGE value="Blog class created." />
     <MESSAGE value="Ctf class created." />
-    <option name="LAST_COMMIT_MESSAGE" value="Ctf class created." />
+    <MESSAGE value="Created Prize.cs" />
+    <MESSAGE value="Created Event.cs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created Event.cs" />
   </component>
 </project>
