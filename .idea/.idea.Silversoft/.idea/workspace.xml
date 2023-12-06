@@ -9,9 +9,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="094683f0-8402-4666-b75c-07cbd38c741b" name="Changes" comment="Created SecuredOperation.cs">
-      <change afterPath="$PROJECT_DIR$/Business/Constants/Messages.cs" afterDir="false" />
+    <list default="true" id="094683f0-8402-4666-b75c-07cbd38c741b" name="Changes" comment="Created Messages.cs">
+      <change afterPath="$PROJECT_DIR$/Business/DependencyResolver/Autofac/AutofacBusinessModule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Silversoft/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Silversoft/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Business/Business.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Business/Business.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Business/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Business/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Core/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entities/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/WebAPI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/WebAPI.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/WebAPI.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/WebAPI.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/WebAPI.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/WebAPI.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/obj/WebAPI.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/WebAPI.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebAPI/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +52,8 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock://C:/Projects/Silversoft/Business/BusinessAspects/Autofac/SecuredOperation.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Silversoft/Business/BusinessAspects/Autofac/SecuredOperation.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Silversoft/Core/Utilities/IoC/ServiceTool.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Core/obj/Debug/netstandard2.1/.NETStandard,Version=v2.1.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Silversoft/Entities/Concrete/Blog.cs" root0="SKIP_HIGHLIGHTING" />
@@ -164,7 +182,7 @@
       <workItem from="1701896802511" duration="2072000" />
       <workItem from="1701898940471" duration="699000" />
       <workItem from="1701899702447" duration="384000" />
-      <workItem from="1701900121653" duration="2343000" />
+      <workItem from="1701900121653" duration="3743000" />
     </task>
     <task id="LOCAL-00001" summary="User class modified for requirements">
       <option name="closed" value="true" />
@@ -318,7 +336,31 @@
       <option name="project" value="LOCAL" />
       <updated>1701902486147</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Created Messages.cs">
+      <option name="closed" value="true" />
+      <created>1701902548025</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1701902548025</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Added Messages class using">
+      <option name="closed" value="true" />
+      <created>1701902565308</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1701902565309</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Created Messages.cs">
+      <option name="closed" value="true" />
+      <created>1701902580295</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1701902580295</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -355,6 +397,8 @@
     <MESSAGE value="." />
     <MESSAGE value="Created Dto classes" />
     <MESSAGE value="Created SecuredOperation.cs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created SecuredOperation.cs" />
+    <MESSAGE value="Added Messages class using" />
+    <MESSAGE value="Created Messages.cs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created Messages.cs" />
   </component>
 </project>
