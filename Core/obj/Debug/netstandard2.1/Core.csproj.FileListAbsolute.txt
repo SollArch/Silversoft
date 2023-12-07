@@ -1,0 +1,10 @@
+C:\Projects\Silversoft\Core\bin\Debug\netstandard2.1\Core.deps.json
+C:\Projects\Silversoft\Core\bin\Debug\netstandard2.1\Core.dll
+C:\Projects\Silversoft\Core\bin\Debug\netstandard2.1\Core.pdb
+C:\Projects\Silversoft\Core\obj\Debug\netstandard2.1\Core.csproj.AssemblyReference.cache
+C:\Projects\Silversoft\Core\obj\Debug\netstandard2.1\Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Silversoft\Core\obj\Debug\netstandard2.1\Core.AssemblyInfoInputs.cache
+C:\Projects\Silversoft\Core\obj\Debug\netstandard2.1\Core.AssemblyInfo.cs
+C:\Projects\Silversoft\Core\obj\Debug\netstandard2.1\Core.csproj.CoreCompileInputs.cache
+C:\Projects\Silversoft\Core\obj\Debug\netstandard2.1\Core.dll
+C:\Projects\Silversoft\Core\obj\Debug\netstandard2.1\Core.pdb

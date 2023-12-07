@@ -6,7 +6,8 @@
 
     <ItemGroup>
       <Folder Include="Abstract\" />
-      <Folder Include="Concrete\EntityFramework\Context\" />
+      <Folder Include="Concrete\EntityFramework\" />
+      <Folder Include="Context\" />
     </ItemGroup>
 
 </Project>
