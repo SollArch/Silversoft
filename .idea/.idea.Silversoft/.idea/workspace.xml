@@ -9,7 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="094683f0-8402-4666-b75c-07cbd38c741b" name="Changes" comment=".">
+    <list default="true" id="094683f0-8402-4666-b75c-07cbd38c741b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Silversoft/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Silversoft/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/obj/Debug/netstandard2.1/.NETStandard,Version=v2.1.AssemblyAttributes.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/obj/Debug/netstandard2.1/Core.AssemblyInfo.cs" beforeDir="false" />
     </list>
@@ -183,7 +184,7 @@
       <workItem from="1701978821064" duration="8050000" />
       <workItem from="1702055001630" duration="6034000" />
       <workItem from="1702069092208" duration="1218000" />
-      <workItem from="1702070467351" duration="1935000" />
+      <workItem from="1702070467351" duration="2231000" />
     </task>
     <task id="LOCAL-00001" summary="User class modified for requirements">
       <option name="closed" value="true" />
