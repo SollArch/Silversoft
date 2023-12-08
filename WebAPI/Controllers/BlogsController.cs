@@ -14,12 +14,4 @@ public class BlogsController : Controller
     {
         _blogService = blogService;
     }
-    
-    [HttpGet("test")]
-    public IActionResult Test()
-    {
-        _blogService.Test();
-        var a = new BlogsController(new BlogManager());
-        return Ok();
-    }
 }

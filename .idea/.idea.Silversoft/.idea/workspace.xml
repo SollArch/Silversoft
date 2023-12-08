@@ -48,6 +48,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/0c03f4f4435f9dceac31fc0105477f85bad747c9a3fe58c5d8c966dbef7fc6/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3839fc8fee5ae62538a4469ed86bbba1ccd15d4e0da63bba779abe1719da3/IConfiguration.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/531c96b8e65a42c13fbfb71e2d0e4c1a7acc0fc515d33df164e682b2a18/IConfigurationSection.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/683582621746ad7502d762a3587cf8e4c933d4e9f1882758675dd903c807d47/AuthenticationServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/6ff91fdbc61b98f9a1fb4d3979c8c1dd4eb3e1101983e8bf9f89eaf3d165dac/ConfigureHostBuilder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/789b158a98468e474a2af1348cfd47e7792de2ae2344f55a03ddf85b16699b/WebApplicationBuilder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8c69a3275b6f2e32375f4779db698b143d8d68f7708dc26ae3899b5fc7bafd38/IHostBuilder.cs" root0="SKIP_HIGHLIGHTING" />
@@ -184,7 +185,7 @@
       <workItem from="1701978821064" duration="8050000" />
       <workItem from="1702055001630" duration="6034000" />
       <workItem from="1702069092208" duration="1218000" />
-      <workItem from="1702070467351" duration="2231000" />
+      <workItem from="1702070467351" duration="5967000" />
     </task>
     <task id="LOCAL-00001" summary="User class modified for requirements">
       <option name="closed" value="true" />

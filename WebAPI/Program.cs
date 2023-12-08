@@ -1,10 +1,9 @@
-using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business.Abstract;
 using Business.Concrete;
-using Business.DependencyResolver.Autofac;
 using Core.DependencyResolver;
 using Core.Extentions;
+using Core.Mailing;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.Jwt;
@@ -13,13 +12,14 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 
 
 builder.Services.AddTransient<DatabaseContext>();
 builder.Services.AddTransient<IBlogService, BlogManager>();
+builder.Services.AddTransient<IMailService, MailKitMailService>();
+builder.Services.AddTransient<IAuthService, AuthManager>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
