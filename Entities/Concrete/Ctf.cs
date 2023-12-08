@@ -1,6 +1,10 @@
+
+using Core.Entities.Abstract;
+
 namespace Entities.Concrete
 {
-    public class Ctf{
+    public class Ctf : IEntity
+    {
         public int CtfId { get; set; }
         public string Title { get; set; }
         public string Question { get; set; }

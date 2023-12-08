@@ -1,6 +1,8 @@
+using Core.Entities.Abstract;
+
 namespace Entities.DTO
 {
-    public class ChangePasswordDto
+    public class ChangePasswordDto : IDto
     {
         public int UserId { get; set; }
         public string CurrentPassword { get; set; }

@@ -1,6 +1,8 @@
+using Core.Entities.Abstract;
+
 namespace Entities.DTO
 {
-    public class UserForRegisterDto
+    public class UserForRegisterDto : IDto
     {
         public string FirstName { get; set; }
         public string Surname { get; set; }

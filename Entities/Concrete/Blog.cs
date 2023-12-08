@@ -1,6 +1,9 @@
+
+using Core.Entities.Abstract;
+
 namespace Entities.Concrete
 {
-    public class Blog
+    public class Blog : IEntity
     {
         public int BlogId { get; set; }
         public int UserId { get; set; }
@@ -9,4 +12,4 @@ namespace Entities.Concrete
         public string ImageUrl { get; set; }
         public int LikeCount { get; set; }
     }
-}
+} 

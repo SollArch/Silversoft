@@ -1,0 +1,13 @@
+C:\Projects\Silversoft\Business\bin\Debug\netstandard2.1\Business.deps.json
+C:\Projects\Silversoft\Business\bin\Debug\netstandard2.1\Business.dll
+C:\Projects\Silversoft\Business\bin\Debug\netstandard2.1\Business.pdb
+C:\Projects\Silversoft\Business\bin\Debug\netstandard2.1\Core.dll
+C:\Projects\Silversoft\Business\bin\Debug\netstandard2.1\Core.pdb
+C:\Projects\Silversoft\Business\obj\Debug\netstandard2.1\Business.csproj.AssemblyReference.cache
+C:\Projects\Silversoft\Business\obj\Debug\netstandard2.1\Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Silversoft\Business\obj\Debug\netstandard2.1\Business.AssemblyInfoInputs.cache
+C:\Projects\Silversoft\Business\obj\Debug\netstandard2.1\Business.AssemblyInfo.cs
+C:\Projects\Silversoft\Business\obj\Debug\netstandard2.1\Business.csproj.CoreCompileInputs.cache
+C:\Projects\Silversoft\Business\obj\Debug\netstandard2.1\Business.csproj.CopyComplete
+C:\Projects\Silversoft\Business\obj\Debug\netstandard2.1\Business.dll
+C:\Projects\Silversoft\Business\obj\Debug\netstandard2.1\Business.pdb

@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Core.Entities.Abstract;
 
 namespace Entities.Concrete
 {
-    public class Event
+    public class Event : IEntity
     {
         public int EventId { get; set; }
         public string Title { get; set; }

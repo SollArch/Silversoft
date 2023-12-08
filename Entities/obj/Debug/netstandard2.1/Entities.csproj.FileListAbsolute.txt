@@ -1,0 +1,13 @@
+C:\Projects\Silversoft\Entities\bin\Debug\netstandard2.1\Entities.deps.json
+C:\Projects\Silversoft\Entities\bin\Debug\netstandard2.1\Entities.dll
+C:\Projects\Silversoft\Entities\bin\Debug\netstandard2.1\Entities.pdb
+C:\Projects\Silversoft\Entities\bin\Debug\netstandard2.1\Core.dll
+C:\Projects\Silversoft\Entities\bin\Debug\netstandard2.1\Core.pdb
+C:\Projects\Silversoft\Entities\obj\Debug\netstandard2.1\Entities.csproj.AssemblyReference.cache
+C:\Projects\Silversoft\Entities\obj\Debug\netstandard2.1\Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Silversoft\Entities\obj\Debug\netstandard2.1\Entities.AssemblyInfoInputs.cache
+C:\Projects\Silversoft\Entities\obj\Debug\netstandard2.1\Entities.AssemblyInfo.cs
+C:\Projects\Silversoft\Entities\obj\Debug\netstandard2.1\Entities.csproj.CoreCompileInputs.cache
+C:\Projects\Silversoft\Entities\obj\Debug\netstandard2.1\Entities.csproj.CopyComplete
+C:\Projects\Silversoft\Entities\obj\Debug\netstandard2.1\Entities.dll
+C:\Projects\Silversoft\Entities\obj\Debug\netstandard2.1\Entities.pdb

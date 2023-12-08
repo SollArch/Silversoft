@@ -1,13 +1,25 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Business.Abstract;
+using Business.Concrete;
+using Business.DependencyResolver.Autofac;
 using Core.DependencyResolver;
 using Core.Extentions;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.Jwt;
+using DataAccess.Context;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+
+builder.Services.AddTransient<DatabaseContext>();
+builder.Services.AddTransient<IBlogService, BlogManager>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -44,18 +56,20 @@ builder.Services.AddSwaggerGen(opt =>
         {
             new OpenApiSecurityScheme
                 { Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" } },
-            new string[] { }
+            Array.Empty<string>()
         }
     });
 });
+builder.Services.AddAutofac();
+
 builder.Services.AddDependencyResolvers(new ICoreModule[]
 {
     new CoreModule()
 });
 
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
