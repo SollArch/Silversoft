@@ -7,6 +7,8 @@ using Core.Mailing;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.Jwt;
+using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using DataAccess.Context;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,9 +19,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddTransient<DatabaseContext>();
-builder.Services.AddTransient<IBlogService, BlogManager>();
-builder.Services.AddTransient<IMailService, MailKitMailService>();
+
 builder.Services.AddTransient<IAuthService, AuthManager>();
+builder.Services.AddTransient<ITokenHelper, JwtHelper>();
+
+builder.Services.AddTransient<IUserDal,EfUserDal>();
+builder.Services.AddTransient<IUserService,UserManager>();
+
+builder.Services.AddTransient<IMailService, MailKitMailService>();
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
