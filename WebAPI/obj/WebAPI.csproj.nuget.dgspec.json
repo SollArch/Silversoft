@@ -35,6 +35,12 @@
             "projectReferences": {
               "C:\\Projects\\Silversoft\\Core\\Core.csproj": {
                 "projectPath": "C:\\Projects\\Silversoft\\Core\\Core.csproj"
+              },
+              "C:\\Projects\\Silversoft\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "C:\\Projects\\Silversoft\\DataAccess\\DataAccess.csproj"
+              },
+              "C:\\Projects\\Silversoft\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Projects\\Silversoft\\Entities\\Entities.csproj"
               }
             }
           }
