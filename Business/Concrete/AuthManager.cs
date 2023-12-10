@@ -8,7 +8,6 @@ using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.Jwt;
 using Core.Utilities.Security.Password;
-using DataAccess.Concrete.EntityFramework;
 using Entities.DTO;
 using Entities.Enums;
 
@@ -21,15 +20,16 @@ namespace Business.Concrete
         private readonly IUserService _userService;
         private readonly IOperationClaimService _operationClaimService;
         private readonly IUserOperationClaimService _userOperationClaimService;
-
+        private readonly IOtpService _otpService;
         public AuthManager(IMailService mailService, ITokenHelper tokenHelper, IUserService userService,
-            IUserOperationClaimService userOperationClaimService, IOperationClaimService operationClaimService)
+            IUserOperationClaimService userOperationClaimService, IOperationClaimService operationClaimService, IOtpService otpService)
         {
             _mailService = mailService;
             _tokenHelper = tokenHelper;
             _userService = userService;
             _userOperationClaimService = userOperationClaimService;
             _operationClaimService = operationClaimService;
+            _otpService = otpService;
         }
 
         public IDataResult<User> Register(UserForRegisterDto user)
@@ -59,19 +59,15 @@ namespace Business.Concrete
             _userOperationClaimService.Add(userOperationClaim);
             return new SuccessDataResult<User>(newUser, Messages.UserRegistered);
         }
-
-        public IResult CheckOtp(CheckOtpDto checkOtpDto)
-        {
-            throw new System.NotImplementedException();
-        }
+        
 
         public void SendNewPassword(string email, string name, string password)
         {
             var mail = new Mail
             {
                 ToEmail = email,
-                Subject = "Welcome to Silversoft",
-                TextBody = $"Dear {name} {password} is your first password, please change this later.",
+                Subject = "Yeni parolan burada!",
+                TextBody = $"Sevgili {name}, Silversoft'a hoş geldin. İşte yeni parolan: {password} . Lütfen parolanı daha sonra değiştirmeyi ihmal etme.",
                 ToFullName = name,
             };
             _mailService.Send(mail);
@@ -100,9 +96,9 @@ namespace Business.Concrete
         {
             var rules = new UserRules(_userService);
             var result = BusinessRules.Run(
-                rules.CheckIfEmailExist(user.Email),
-                rules.CheckIfUserNameExist(user.UserName),
-                rules.CheckIfStudentNumberExist(user.StudentNumber)
+                rules.CheckIfEmailExist(user.Email,0),
+                rules.CheckIfUserNameExist(user.UserName,0),
+                rules.CheckIfStudentNumberExist(user.StudentNumber,0)
             );
             return result ?? new SuccessResult();
         }
@@ -114,14 +110,50 @@ namespace Business.Concrete
             return new SuccessDataResult<AccessToken>(accessToken, Messages.PasswordSendToYourMail);
         }
 
-        public IResult ChangePassword(ChangePasswordDto changePasswordDto)
+        public IResult ChangePassword(ChangePasswordDto changePasswordDto, CheckOtpDto checkOtpDto)
         {
-            throw new System.NotImplementedException();
+            var userToCheck = _userService.GetByEmail(changePasswordDto.Email).Data;
+            if (userToCheck == null)
+                return new ErrorResult(Messages.UserNotFound);
+            
+            var rules = new UserRules(_userService);
+            var result = BusinessRules.Run(
+                rules.CheckIfPasswordCorrect(changePasswordDto.CurrentPassword, userToCheck.PasswordHash,
+                    userToCheck.PasswordSalt),
+                rules.CheckIfPasswordsSame(changePasswordDto)
+            );
+            if (result != null) return new ErrorResult(result.Message);
+            var otpResult = _otpService.CheckOtp(checkOtpDto);
+            if (!otpResult.Success)
+            {
+                return otpResult;
+            }
+            HashingHelper.CreatePasswordHash(changePasswordDto.NewPassword, out var passwordHash,
+                out var passwordSalt);
+            userToCheck.PasswordHash = passwordHash;
+            userToCheck.PasswordSalt = passwordSalt;
+            _userService.Update(userToCheck);
+            return new SuccessResult(Messages.PasswordChanged);
         }
 
         public IResult ForgotPassword(ForgotPasswordDto forgotPasswordDto)
         {
-            throw new System.NotImplementedException();
-        }
+            var user = _userService.GetByEmail(forgotPasswordDto.Email).Data;
+            var rules = new UserRules(_userService);
+            var result = BusinessRules.Run(
+                rules.CheckIfUserNull(user),
+                rules.CheckIfUserNameNotExist(user.UserName)
+            );
+            if (result != null) return new ErrorResult(result.Message);
+            var password = PasswordHelper.GeneratePassword();
+            HashingHelper.CreatePasswordHash(password, out var passwordHash, out var passwordSalt);
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
+            var updateResult = _userService.Update(user);
+            if (!updateResult.Success)
+                return updateResult;
+            SendNewPassword(user.Email, user.UserName, password);
+            return new SuccessResult(Messages.PasswordSendToYourMail);
+        }   
     }
 }
