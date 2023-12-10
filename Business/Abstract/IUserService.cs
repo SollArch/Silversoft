@@ -6,6 +6,7 @@ namespace Business.Abstract
 {
     public interface IUserService
     {
+        List<OperationClaim> GetClaims(int userId);
         IDataResult<List<User>> GetAll();
         IDataResult<User> GetByEmail(string email);
         IDataResult<User> GetByUserName(string userName);
