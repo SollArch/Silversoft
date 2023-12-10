@@ -8,7 +8,6 @@ using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.Jwt;
 using Core.Utilities.Security.Password;
-using DataAccess.Concrete.EntityFramework;
 using Entities.DTO;
 using Entities.Enums;
 
@@ -59,11 +58,7 @@ namespace Business.Concrete
             _userOperationClaimService.Add(userOperationClaim);
             return new SuccessDataResult<User>(newUser, Messages.UserRegistered);
         }
-
-        public IResult CheckOtp(CheckOtpDto checkOtpDto)
-        {
-            throw new System.NotImplementedException();
-        }
+        
 
         public void SendNewPassword(string email, string name, string password)
         {
