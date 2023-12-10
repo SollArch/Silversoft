@@ -12,7 +12,7 @@ namespace Business.Abstract
         IDataResult<User> Login(UserForLoginDto userForLoginDto);
         IResult UserExists(UserForRegisterDto user);
         IDataResult<AccessToken> CreateAccessToken(User user);
-        IResult ChangePassword(ChangePasswordDto changePasswordDto);
+        IResult ChangePassword(ChangePasswordDto changePasswordDto, CheckOtpDto checkOtpDto);
         IResult ForgotPassword(ForgotPasswordDto forgotPasswordDto);
         void SendNewPassword(string email,string name, string password);
     
