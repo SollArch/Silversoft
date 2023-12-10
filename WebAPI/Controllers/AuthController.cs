@@ -12,10 +12,12 @@ public class AuthController : Controller
 {
     private readonly IAuthService _authService;
     private readonly IOtpService _otpService;
-    public AuthController(IAuthService authService, IOtpService otpService)
+    private readonly IUserService _userService;
+    public AuthController(IAuthService authService, IOtpService otpService, IUserService userService)
     {
         _authService = authService;
         _otpService = otpService;
+        _userService = userService;
     }
     
     [HttpPost("register")]
@@ -54,5 +56,37 @@ public class AuthController : Controller
         if(result.Success)
             return Ok(result.Message);
         return BadRequest(result.Message);
+    }
+    
+    [HttpPost("forgotpassword")]
+    public IActionResult ForgotPassword([FromBody] ForgotPasswordDto forgotPasswordDto)
+    {
+        var user = _userService.GetByEmail(forgotPasswordDto.Email).Data;
+        var sendOtpDto = new SendOtpDto
+        {
+            Email = forgotPasswordDto.Email,
+            Otp = OtpHelper.GenerateOtp(),
+            UserName = user.UserName
+        };
+        var result = _otpService.SendOtp(sendOtpDto);
+        return Ok(result.Message);
+    }
+    
+    [HttpPost("changepassword")]
+    public IActionResult ChangePassword([FromQuery] string email)
+    {
+        var user = _userService.GetByEmail(email).Data;
+        var sendOtpDto = new SendOtpDto
+        {
+            Email = email,
+            Otp = OtpHelper.GenerateOtp(),
+            UserName = user.UserName
+        };
+        var otpResult = _otpService.SendOtp(sendOtpDto);
+        if (!otpResult.Success)
+        {
+            return BadRequest(otpResult);
+        }
+        return Ok(otpResult);
     }
 }
