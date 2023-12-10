@@ -7,6 +7,6 @@ namespace DataAccess.Abstract
 {
     public interface IOperationClaimDal : IEntityRepository<OperationClaim>
     {
-        List<OperationClaim> GetClaims(int userId);
+    
     }
 }
