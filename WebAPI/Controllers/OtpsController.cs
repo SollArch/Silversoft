@@ -16,8 +16,8 @@ public class OtpsController : Controller
         _authService = authService;
     }
     
-    [HttpPost("checkotp")]
-    public IActionResult CheckOtp([FromBody] CheckOtpDto checkOtpDto)
+    [HttpPost("checkotpforlogin")]
+    public IActionResult CheckOtpForLogin([FromBody] CheckOtpDto checkOtpDto)
     {
         var otpResult = _otpService.CheckOtp(checkOtpDto);
         if (!otpResult.Success)
