@@ -31,4 +31,38 @@ public class OtpsController : Controller
         }
         return BadRequest(otpResult.Message);
     }
+    
+    [HttpPost("checkotpforforgotpassword")]
+    public IActionResult CheckOtpForForgotPassword([FromBody] CheckOtpDto checkOtpDto)
+    {
+        var otpResult = _otpService.CheckOtp(checkOtpDto);
+        var user = otpResult.Data;
+        if (!otpResult.Success)
+        {
+            return BadRequest(otpResult.Message);
+        }
+        var forgotPasswordDto = new ForgotPasswordDto
+        {
+            Email = user.Email
+        };
+        
+        var result = _authService.ForgotPassword(forgotPasswordDto);
+        if (result.Success)
+        {
+            return Ok(result.Message);
+        }
+        return BadRequest(result.Message);
+    }
+    
+     [HttpPost("checkotpforchangepassword")]
+     public IActionResult CheckOtpForChangePassword([FromBody] CheckOtpDto checkOtpDto,[FromQuery] ChangePasswordDto changePasswordDto)
+     {
+         var result = _authService.ChangePassword(changePasswordDto,checkOtpDto);
+         if (result.Success)
+         {
+             return Ok(result.Message);
+         }
+         return BadRequest(result.Message);
+     }
+    
 }
