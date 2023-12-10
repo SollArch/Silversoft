@@ -3,7 +3,7 @@ using Business.Constants;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
-using DataAccess.Abstract;
+using Entities.DTO;
 
 namespace Business.Rules
 {
@@ -16,11 +16,11 @@ namespace Business.Rules
             _userService = userService;
         }
 
-        public  IResult CheckIfStudentNumberExist(string studentNumber)
+        public  IResult CheckIfStudentNumberExist(string studentNumber, int userId)
         {
             
             var result = _userService.GetByStudentNumber(studentNumber);
-            if (result.Data != null)
+            if (result.Data != null && result.Data.UserId != userId)
             {
                 return new ErrorResult(Messages.ThisStudentNumberAlreadyExists);
             }
@@ -28,10 +28,10 @@ namespace Business.Rules
             return new SuccessResult();
         }
 
-        public IResult CheckIfEmailExist(string userEmail)
+        public IResult CheckIfEmailExist(string userEmail, int userId)
         {
             var result = _userService.GetByEmail(userEmail);
-            if (result.Data != null)
+            if (result.Data != null && result.Data.UserId != userId)
             {
                 return new ErrorResult(Messages.ThisEmailAlreadyExists);
             }
@@ -39,10 +39,10 @@ namespace Business.Rules
             return new SuccessResult();
         }
 
-        public IResult CheckIfUserNameExist(string userName)
+        public IResult CheckIfUserNameExist(string userName, int userId)
         {
             var result = _userService.GetByUserName(userName);
-            if (result.Data != null)
+            if (result.Data != null && result.Data.UserId != userId)
             {
                 return new ErrorResult(Messages.ThisUserNameAlreadyExists);
             }
@@ -95,6 +95,13 @@ namespace Business.Rules
             {
                 return new ErrorResult(Messages.UserWasBlocked);
             }
+            return new SuccessResult();
+        }
+
+        public IResult CheckIfPasswordsSame(ChangePasswordDto changePasswordDto)
+        {
+            if(changePasswordDto.NewPassword == changePasswordDto.CurrentPassword)
+                return new ErrorResult(Messages.PasswordsSame);
             return new SuccessResult();
         }
     }
