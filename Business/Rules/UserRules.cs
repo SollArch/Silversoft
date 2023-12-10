@@ -1,23 +1,26 @@
+using Business.Abstract;
 using Business.Constants;
+using Core.Entities.Concrete;
 using Core.Utilities.Results;
+using Core.Utilities.Security.Hashing;
 using DataAccess.Abstract;
 
 namespace Business.Rules
 {
-    public abstract class UserRules
+    public class UserRules
     {
-        private static IUserDal _userDal;
+        private readonly IUserService _userService;
 
-        protected UserRules(IUserDal userDal)
+        public UserRules( IUserService userService)
         {
-            _userDal = userDal;
+            _userService = userService;
         }
 
-        public static IResult CheckIfStudentNumberExist(string studentNumber)
+        public  IResult CheckIfStudentNumberExist(string studentNumber)
         {
             
-            var result = _userDal.Get(u => u.StudentNumber == studentNumber);
-            if (result != null)
+            var result = _userService.GetByStudentNumber(studentNumber);
+            if (result.Data != null)
             {
                 return new ErrorResult(Messages.ThisStudentNumberAlreadyExists);
             }
@@ -25,10 +28,10 @@ namespace Business.Rules
             return new SuccessResult();
         }
 
-        public static IResult CheckIfEmailExist(string userEmail)
+        public IResult CheckIfEmailExist(string userEmail)
         {
-            var result = _userDal.Get(u => u.Email == userEmail);
-            if (result != null)
+            var result = _userService.GetByEmail(userEmail);
+            if (result.Data != null)
             {
                 return new ErrorResult(Messages.ThisEmailAlreadyExists);
             }
@@ -36,10 +39,10 @@ namespace Business.Rules
             return new SuccessResult();
         }
 
-        public static IResult CheckIfUserNameExist(string userName)
+        public IResult CheckIfUserNameExist(string userName)
         {
-            var result = _userDal.Get(u => u.UserName == userName);
-            if (result != null)
+            var result = _userService.GetByUserName(userName);
+            if (result.Data != null)
             {
                 return new ErrorResult(Messages.ThisUserNameAlreadyExists);
             }
@@ -47,14 +50,51 @@ namespace Business.Rules
             return new SuccessResult();
         }
 
-        public static IResult CheckIfUserNotExist(int userId)
+        public IResult CheckIfUserNotExist(int userId)
         {
-            var result = _userDal.Get(u => u.UserId == userId);
+            var result = _userService.GetById(userId);
             if (result == null)
             {
                 return new ErrorResult(Messages.UserNotFound);
             }
 
+            return new SuccessResult();
+        }
+        public IResult CheckIfUserNameNotExist(string userName)
+        {
+            var result = _userService.GetByUserName(userName);
+            if (result.Data == null)
+            {
+                return new ErrorResult(Messages.ThisUserNameAlreadyExists);
+            }
+
+            return new SuccessResult();
+        }
+
+        public IResult CheckIfUserNull(User user)
+        {
+            if (user == null)
+            {
+                return new ErrorResult(Messages.UserNotFound);
+            }
+            return new SuccessResult();
+        }
+
+        public IResult CheckIfPasswordCorrect(string password,byte[] passwordHash,byte[] passwordSalt)
+        {
+            if (!HashingHelper.VerifyPasswordHash(password, passwordHash, passwordSalt))
+            {
+                return new ErrorResult(Messages.PasswordError);
+            }
+            return new SuccessResult();
+        }
+
+        public IResult CheckIfUserStatus(bool status)
+        {
+            if (!status)
+            {
+                return new ErrorResult(Messages.UserWasBlocked);
+            }
             return new SuccessResult();
         }
     }
