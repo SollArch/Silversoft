@@ -28,9 +28,13 @@ namespace Business.Concrete
         public IDataResult<User> CheckOtp(CheckOtpDto checkOtpDto)
         {
             var otp = _otpDal.Get(x => x.UserName == checkOtpDto.UserName);
+            if (otp ==null)
+            {
+                return new ErrorDataResult<User>(Messages.OtpNotFound);
+            }
             var otpRules = new OtpRules(this);
             var result = BusinessRules.Run(
-                otpRules.CheckIfOtpNull(otp),
+                
                 otpRules.CheckIfOtpExpired(otp),
                 otpRules.CheckIfOtpMatch(otp, checkOtpDto.Otp)
                 );
@@ -46,8 +50,8 @@ namespace Business.Concrete
             var mail = new Mail
             {
                 ToEmail = sendOtpDto.Email,
-                Subject = "Your Otp Is Here",
-                TextBody = $"Your otp is {sendOtpDto.Otp}. This OTP will expire in 30 minutes.",
+                Subject = "Tek kullanımlık şifren burada!",
+                TextBody = $"Seni burada görmek güzel, işte tek kullanımlık şifren: {sendOtpDto.Otp}.\nBu parolan 30 dakika geçerli olacak.",
                 ToFullName = sendOtpDto.UserName,
             };
             var otp = new Otp
