@@ -26,7 +26,10 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<User>>(_userDal.GetAll());
         }
-        
+        public List<OperationClaim> GetClaims(int userId)
+        {
+            return _userDal.GetClaims(userId);
+        }
         
         public IDataResult<User> GetByEmail(string email)
         {
@@ -52,10 +55,11 @@ namespace Business.Concrete
         [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
+            var userRules = new UserRules(this);
             var result = BusinessRules.Run(
-                UserRules.CheckIfStudentNumberExist(user.StudentNumber),
-                UserRules.CheckIfEmailExist(user.Email),
-                UserRules.CheckIfUserNameExist(user.UserName)
+                userRules.CheckIfStudentNumberExist(user.StudentNumber),
+                userRules.CheckIfEmailExist(user.Email),
+                userRules.CheckIfUserNameExist(user.UserName)
             );
             if (result != null)
             {
@@ -70,10 +74,11 @@ namespace Business.Concrete
         [ValidationAspect(typeof(UserValidator))]
         public IResult Update(User user)
         {
+            var userRules = new UserRules(this);
             var result = BusinessRules.Run(
-                UserRules.CheckIfStudentNumberExist(user.StudentNumber),
-                UserRules.CheckIfEmailExist(user.Email),
-                UserRules.CheckIfUserNameExist(user.UserName)
+                userRules.CheckIfStudentNumberExist(user.StudentNumber),
+                userRules.CheckIfEmailExist(user.Email),
+                userRules.CheckIfUserNameExist(user.UserName)
             );
             if (result != null)
             {
@@ -85,7 +90,9 @@ namespace Business.Concrete
         [CacheRemoveAspect("IUserService.Get")]
         public IResult Delete(User user)
         {
-            var result = BusinessRules.Run(UserRules.CheckIfUserNotExist(user.UserId));
+            var userRules = new UserRules(this);
+            var result = BusinessRules.Run(userRules.CheckIfUserNotExist(user.UserId));
+            if (result != null) return result;
             _userDal.Delete(user);
             return new SuccessResult(Messages.UserDeleted);
         }
