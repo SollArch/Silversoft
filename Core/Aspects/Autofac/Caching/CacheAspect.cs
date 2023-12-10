@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Castle.DynamicProxy;
 using Core.CrossCuttingConcerns.Caching;
 using Core.Utilities.Interceptors;
@@ -12,7 +9,7 @@ namespace Core.Aspects.Autofac.Caching
 {
     public class CacheAspect : MethodInterception
     {
-        private int _duration;
+        private readonly int _duration;
         private readonly ICacheManager _cacheManager;
 
         public CacheAspect(int duration = 20)

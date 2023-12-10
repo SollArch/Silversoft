@@ -22,11 +22,23 @@ builder.Services.AddTransient<DatabaseContext>();
 
 builder.Services.AddTransient<IAuthService, AuthManager>();
 builder.Services.AddTransient<ITokenHelper, JwtHelper>();
+builder.Services.AddTransient<IMailService, MailKitMailService>();
 
 builder.Services.AddTransient<IUserDal,EfUserDal>();
 builder.Services.AddTransient<IUserService,UserManager>();
 
-builder.Services.AddTransient<IMailService, MailKitMailService>();
+builder.Services.AddTransient<IOperationClaimDal,EfOperationClaimDal>();
+builder.Services.AddTransient<IOperationClaimService,OperationClaimManager>();
+
+builder.Services.AddTransient<IUserOperationClaimDal,EfUserOperationClaimDal>();
+builder.Services.AddTransient<IUserOperationClaimService,UserOperationClaimManager>();
+
+builder.Services.AddTransient<IOtpDal,EfOtpDal>();
+builder.Services.AddTransient<IOtpService, OtpManager>();
+
+
+
+
 
 
 builder.Services.AddControllers();
