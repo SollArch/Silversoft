@@ -57,9 +57,9 @@ namespace Business.Concrete
         {
             var userRules = new UserRules(this);
             var result = BusinessRules.Run(
-                userRules.CheckIfStudentNumberExist(user.StudentNumber),
-                userRules.CheckIfEmailExist(user.Email),
-                userRules.CheckIfUserNameExist(user.UserName)
+                userRules.CheckIfStudentNumberExist(user.StudentNumber,user.UserId),
+                userRules.CheckIfEmailExist(user.Email,user.UserId),
+                userRules.CheckIfUserNameExist(user.UserName,user.UserId)
             );
             if (result != null)
             {
@@ -76,15 +76,16 @@ namespace Business.Concrete
         {
             var userRules = new UserRules(this);
             var result = BusinessRules.Run(
-                userRules.CheckIfStudentNumberExist(user.StudentNumber),
-                userRules.CheckIfEmailExist(user.Email),
-                userRules.CheckIfUserNameExist(user.UserName)
+                userRules.CheckIfStudentNumberExist(user.StudentNumber,user.UserId),
+                userRules.CheckIfEmailExist(user.Email,user.UserId),
+                userRules.CheckIfUserNameExist(user.UserName,user.UserId)
             );
             if (result != null)
             {
                 return result;
             }
-            throw new System.NotImplementedException();
+            _userDal.Update(user);
+            return new SuccessResult(Messages.UserUpdated);
         }
 
         [CacheRemoveAspect("IUserService.Get")]
