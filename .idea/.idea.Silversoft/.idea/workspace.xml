@@ -11,64 +11,19 @@
   <component name="ChangeListManager">
     <list default="true" id="094683f0-8402-4666-b75c-07cbd38c741b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Silversoft/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Silversoft/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Business/Abstract/IAuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Business/Abstract/IAuthService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Business/Concrete/AuthManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Business/Concrete/AuthManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Business/Concrete/OtpManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Business/Concrete/OtpManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Business/Concrete/UserManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Business/Concrete/UserManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Business/Constants/Messages.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Business/Constants/Messages.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Business/Rules/UserRules.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Business/Rules/UserRules.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Business/bin/Debug/netstandard2.0/Business.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Business/bin/Debug/netstandard2.0/Business.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Business/bin/Debug/netstandard2.0/Business.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Business/bin/Debug/netstandard2.0/Business.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Business/bin/Debug/netstandard2.0/Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Business/bin/Debug/netstandard2.0/Core.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Business/bin/Debug/netstandard2.0/Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Business/bin/Debug/netstandard2.0/Core.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Business/bin/Debug/netstandard2.0/DataAccess.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Business/bin/Debug/netstandard2.0/DataAccess.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Business/bin/Debug/netstandard2.0/DataAccess.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Business/bin/Debug/netstandard2.0/DataAccess.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Business/bin/Debug/netstandard2.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Business/bin/Debug/netstandard2.0/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Business/bin/Debug/netstandard2.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Business/bin/Debug/netstandard2.0/Entities.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Business/obj/Debug/netstandard2.0/Business.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Business/obj/Debug/netstandard2.0/Business.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Business/obj/Debug/netstandard2.0/Business.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Business/obj/Debug/netstandard2.0/Business.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Business/obj/Debug/netstandard2.0/Business.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Business/obj/Debug/netstandard2.0/Business.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Entities/Concrete/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Entities/Concrete/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Utilities/Security/Password/PasswordHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Utilities/Security/Password/PasswordHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/bin/Debug/netstandard2.0/Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Core/bin/Debug/netstandard2.0/Core.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/bin/Debug/netstandard2.0/Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Core/bin/Debug/netstandard2.0/Core.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/obj/Debug/netstandard2.0/Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Core/obj/Debug/netstandard2.0/Core.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/obj/Debug/netstandard2.0/Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Core/obj/Debug/netstandard2.0/Core.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/bin/Debug/netstandard2.0/Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/bin/Debug/netstandard2.0/Core.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/bin/Debug/netstandard2.0/Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/bin/Debug/netstandard2.0/Core.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/bin/Debug/netstandard2.0/DataAccess.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/bin/Debug/netstandard2.0/DataAccess.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/bin/Debug/netstandard2.0/DataAccess.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/bin/Debug/netstandard2.0/DataAccess.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/bin/Debug/netstandard2.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/bin/Debug/netstandard2.0/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/bin/Debug/netstandard2.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/bin/Debug/netstandard2.0/Entities.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/obj/Debug/netstandard2.0/DataAccess.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/Debug/netstandard2.0/DataAccess.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/obj/Debug/netstandard2.0/DataAccess.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/Debug/netstandard2.0/DataAccess.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/obj/Debug/netstandard2.0/DataAccess.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/Debug/netstandard2.0/DataAccess.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/DTO/ChangePasswordDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/DTO/ChangePasswordDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/DTO/ForgotPasswordDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/DTO/ForgotPasswordDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/bin/Debug/netstandard2.0/Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/bin/Debug/netstandard2.0/Core.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/bin/Debug/netstandard2.0/Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/bin/Debug/netstandard2.0/Core.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/bin/Debug/netstandard2.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/bin/Debug/netstandard2.0/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/bin/Debug/netstandard2.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/bin/Debug/netstandard2.0/Entities.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/obj/Debug/netstandard2.0/Entities.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/obj/Debug/netstandard2.0/Entities.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/obj/Debug/netstandard2.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/obj/Debug/netstandard2.0/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entities/obj/Debug/netstandard2.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Entities/obj/Debug/netstandard2.0/Entities.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebAPI/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/Controllers/AuthController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebAPI/Controllers/OtpsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/Controllers/OtpsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/Business.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/Business.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/Business.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/Business.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/Core.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/Core.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/DataAccess.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/DataAccess.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/DataAccess.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/DataAccess.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/Entities.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/WebAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/WebAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/WebAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/bin/Debug/net7.0/WebAPI.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/WebAPI.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/WebAPI.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/WebAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/WebAPI.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/WebAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/WebAPI.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/ref/WebAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/ref/WebAPI.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/refint/WebAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WebAPI/obj/Debug/net7.0/refint/WebAPI.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -256,6 +211,7 @@
       <workItem from="1702070467351" duration="12594000" />
       <workItem from="1702116187395" duration="10098000" />
       <workItem from="1702195223082" duration="21122000" />
+      <workItem from="1702277164603" duration="1906000" />
     </task>
     <task id="LOCAL-00001" summary="User class modified for requirements">
       <option name="closed" value="true" />
@@ -532,19 +488,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Business/Concrete/AuthManager.cs</url>
-          <line>35</line>
-          <properties documentPath="C:\Projects\Silversoft\Business\Concrete\AuthManager.cs" initialLine="33" containingFunctionPresentation="Method 'Register'">
-            <startOffsets>
-              <option value="1402" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1403" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Business/Concrete/UserManager.cs</url>

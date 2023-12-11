@@ -50,8 +50,8 @@ namespace Business.Concrete
             var mail = new Mail
             {
                 ToEmail = sendOtpDto.Email,
-                Subject = "Tek kullanımlık şifren burada!",
-                TextBody = $"Seni burada görmek güzel, işte tek kullanımlık şifren: {sendOtpDto.Otp}.\nBu parolan 30 dakika geçerli olacak.",
+                Subject = "Doğrulama kodun işte burada!",
+                TextBody = $"Seni burada görmek güzel, işte doğrulama kodun: {sendOtpDto.Otp}.\nBu kod 30 dakika geçerli olacak.",
                 ToFullName = sendOtpDto.UserName,
             };
             var otp = new Otp
