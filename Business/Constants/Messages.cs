@@ -38,8 +38,8 @@ namespace Business.Constants
         
         // Otp
         public const string OtpNotFound = "Sisteme kayıtlı tek kullanımlık bir şifre bulunamadı. Lütfen tekrar göndermeyi deneyiniz.";
-        public const string OtpExpired = "Tek kullanımlık şifrenin süresi dolmuş";
-        public const string OtpNotMatch = "Tek kullanımlık şifren doğru görünmüyor. Lütfen tekrar dene.";
-        public const string OtpSended = "Tek kullanımlık parolanız mail adresine gönderildi.";
+        public const string OtpExpired = "Bu kodun süresi dolmuş görünüyor. Lütfen tekrar dene.";
+        public const string OtpNotMatch = "Bu kod doğru görünmüyor. Lütfen tekrar dene.";
+        public const string OtpSended = "Doğrulama kodun mail adresine gönderildi. Lütfen kontrol et.";
     }
 }
