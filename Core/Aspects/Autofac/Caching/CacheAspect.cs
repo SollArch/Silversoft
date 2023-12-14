@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Castle.DynamicProxy;
 using Core.CrossCuttingConcerns.Caching;
 using Core.Utilities.Interceptors;
@@ -9,10 +12,10 @@ namespace Core.Aspects.Autofac.Caching
 {
     public class CacheAspect : MethodInterception
     {
-        private readonly int _duration;
-        private readonly ICacheManager _cacheManager;
+        private int _duration;
+        private ICacheManager _cacheManager;
 
-        public CacheAspect(int duration = 20)
+        public CacheAspect(int duration = 60)
         {
             _duration = duration;
             _cacheManager = ServiceTool.ServiceProvider.GetService<ICacheManager>();
@@ -20,7 +23,6 @@ namespace Core.Aspects.Autofac.Caching
 
         public override void Intercept(IInvocation invocation)
         {
-            if (invocation.Method.ReflectedType == null) return;
             var methodName = string.Format($"{invocation.Method.ReflectedType.FullName}.{invocation.Method.Name}");
             var arguments = invocation.Arguments.ToList();
             var key = $"{methodName}({string.Join(",", arguments.Select(x => x?.ToString() ?? "<Null>"))})";

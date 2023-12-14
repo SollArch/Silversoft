@@ -1,5 +1,7 @@
+using AutoMapper;
 using Business.Abstract;
 using Core.Entities.Concrete;
+using Entities.DTO.Get;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApPI.Controllers;
@@ -9,10 +11,11 @@ namespace WebApPI.Controllers;
 public class UsersController : Controller
 {
     private readonly IUserService _userService;
-
-    public UsersController(IUserService userService)
+    private readonly IMapper _mapper;
+    public UsersController(IUserService userService, IMapper mapper)
     {
         _userService = userService;
+        _mapper = mapper;
     }
     
     [HttpGet("getall")]
@@ -63,11 +66,20 @@ public class UsersController : Controller
     public IActionResult GetByEmail([FromRoute] string email)
     {
         var result = _userService.GetByEmail(email);
+        
         if (result.Success)
         {
-            return Ok(result.Data);
+            var userGetDto = _mapper.Map<UserGetDto>(result.Data);
+            return Ok(userGetDto);
         }
         return BadRequest(result.Message);
+    }
+    
+    [HttpGet("getclaims/{userId}")]
+    public IActionResult GetClaims([FromRoute] int userId)
+    {
+        var result = _userService.GetClaims(userId);
+            return Ok(result);
     }
 
     [HttpPost("update")]

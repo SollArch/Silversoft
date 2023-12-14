@@ -30,16 +30,17 @@ namespace Business.Constants
         // Auth
         public const string PasswordError = "Şifren hatalı, lütfen farklı bir şifre ile tekrar dene.";
         public const string SuccessfulLogin = "Başarıyla giriş yaptın. Hoş geldin.";
-        public const string UserNotFound = "Kullanıcı bulunamadı.";
-        public const string AuthorizationDenied = "Üzgünüm, bu işlemi yapmak için yetkin yeterli değil.";
+        public const string UserNotFound = "Girdiğin bilgiler ile eşleşen bir kullanıcı bulunamadık.";
+        public const string AuthorizationDenied = "Boyundan büyük işlere kalkışmış gibi görünüyorsun. Bu işlem için yetkin yok.";
         public const string UserRegistered = "Kaydın oluşturuldu. Aramıza hoş geldin.";
-        public const string PasswordsSame = "Yeni şifre eski şifre ile aynı olamaz.";
+        public const string PasswordsSame = "Yeni şifren eskisi ile aynı olamaz.";
         public const string PasswordChanged = "Şifren değiştirildi.";
         
         // Otp
-        public const string OtpNotFound = "Sisteme kayıtlı tek kullanımlık bir şifre bulunamadı. Lütfen tekrar göndermeyi deneyiniz.";
+        public const string OtpNotFound = "Sisteme kayıtlı tek kullanımlık bir şifre bulunamadı. Lütfen tekrar göndermeyi dene.";
         public const string OtpExpired = "Bu kodun süresi dolmuş görünüyor. Lütfen tekrar dene.";
         public const string OtpNotMatch = "Bu kod doğru görünmüyor. Lütfen tekrar dene.";
         public const string OtpSended = "Doğrulama kodun mail adresine gönderildi. Lütfen kontrol et.";
+        public const string UserHasOtp = "Sana daha önce bir kod göndermişiz gibi duruyor. Lütfen mail adresini kontrol et.";
     }
 }

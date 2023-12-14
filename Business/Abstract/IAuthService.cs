@@ -1,7 +1,8 @@
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Jwt;
-using Entities.DTO;
+using Entities.DTO.Post.Auth;
+using Entities.DTO.Post.Otp;
 
 namespace Business.Abstract
 {
@@ -14,8 +15,6 @@ namespace Business.Abstract
         IDataResult<AccessToken> CreateAccessToken(User user);
         IResult ChangePassword(ChangePasswordDto changePasswordDto, CheckOtpDto checkOtpDto);
         IResult ForgotPassword(ForgotPasswordDto forgotPasswordDto);
-        void SendNewPassword(string email,string name, string password);
-    
         
     }
 }

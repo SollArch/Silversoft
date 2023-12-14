@@ -1,9 +1,7 @@
 using System.Net;
 using System.Net.Mail;
-using Business.Abstract;
 using Core.Mailing;
 using Microsoft.Extensions.Configuration;
-
 namespace Business.Concrete
 {
     public class MailManager : IMailService

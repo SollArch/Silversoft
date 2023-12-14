@@ -1,47 +1,51 @@
-using Business.Abstract;
+using System;
 using Business.Constants;
-using Core.Utilities.Results;
+using Business.Rules.Abstract;
+using Core.Exceptions;
+using DataAccess.Abstract;
 using Entities.Concrete;
 
 namespace Business.Rules
 {
-    public class OtpRules
+    public class OtpRules : IOtpRules
     {
-        private readonly IOtpService _otpService;
+        private readonly IOtpDal _otpDal;
 
-        public OtpRules(IOtpService otpService)
+        public OtpRules(IOtpDal otpDal)
         {
-            _otpService = otpService;
+            _otpDal = otpDal;
         }
 
-        public IResult CheckIfOtpNull(Otp otp)
+        public void CheckIfOtpExpired(DateTime expirationDate)
         {
-            if (otp == null)
-            {
-                return new ErrorResult(Messages.OtpNotFound);
-            }
+            if (expirationDate >= DateTime.Now) return;
+            throw new BusinessException(Messages.OtpExpired);
 
-            return new SuccessResult();
         }
         
-        public IResult CheckIfOtpExpired(Otp otp)
+        public void CheckIfOtpMatch(string otpFromDatabase, string otpToCheck)
         {
-            if (otp.ExpirationDate < System.DateTime.Now)
+            if (otpFromDatabase != otpToCheck)
             {
-                return new ErrorResult(Messages.OtpExpired);
+                throw new BusinessException(Messages.OtpNotMatch);
             }
 
-            return new SuccessResult();
         }
         
-        public IResult CheckIfOtpMatch(Otp otp, string otpToCheck)
+        public void CheckIfUserHasOtp(string userName)
         {
-            if (otp.OneTimePassword != otpToCheck)
+            var otp = _otpDal.Get(o => o.UserName.Equals(userName));
+            if (otp != null)
             {
-                return new ErrorResult(Messages.OtpNotMatch);
+                throw new BusinessException(Messages.UserHasOtp);
             }
 
-            return new SuccessResult();
+        }
+
+        public void CheckIfOtpNull(Otp otp)
+        {
+            if(otp == null)
+                throw new BusinessException(Messages.OtpNotFound);
         }
     }
 }
