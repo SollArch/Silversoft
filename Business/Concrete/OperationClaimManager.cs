@@ -35,6 +35,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("admin")]
+        [ValidationAspect(typeof(OperationClaimValidator))]
         [CacheRemoveAspect("IOperationClaimService.Get")]
         public IResult Update(OperationClaim operationClaim)
         {
@@ -44,6 +45,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("admin")]
+        [ValidationAspect(typeof(OperationClaimValidator))]
         [CacheRemoveAspect("IOperationClaimService.Get")]
         public IResult Delete(OperationClaim operationClaim)
         {
