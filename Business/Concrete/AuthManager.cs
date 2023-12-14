@@ -1,15 +1,16 @@
 using Business.Abstract;
 using Business.Constants;
 using Business.Rules;
+using Business.Rules.Abstract;
 using Core.Entities.Concrete;
 using Core.Mailing;
-using Core.Utilities.Business;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.Jwt;
 using Core.Utilities.Security.Password;
-using Entities.DTO;
-using Entities.Enums;
+using DataAccess.Abstract;
+using Entities.DTO.Post.Auth;
+using Entities.DTO.Post.Otp;
 
 namespace Business.Concrete
 {
@@ -19,17 +20,21 @@ namespace Business.Concrete
         private readonly ITokenHelper _tokenHelper;
         private readonly IUserService _userService;
         private readonly IOperationClaimService _operationClaimService;
-        private readonly IUserOperationClaimService _userOperationClaimService;
+        private readonly IUserOperationClaimDal _userOperationClaimDal;
         private readonly IOtpService _otpService;
+        private readonly IUserRules _userRules;
+
         public AuthManager(IMailService mailService, ITokenHelper tokenHelper, IUserService userService,
-            IUserOperationClaimService userOperationClaimService, IOperationClaimService operationClaimService, IOtpService otpService)
+            IOperationClaimService operationClaimService,
+            IOtpService otpService, IUserRules userRules, IUserOperationClaimDal userOperationClaimDal)
         {
             _mailService = mailService;
             _tokenHelper = tokenHelper;
             _userService = userService;
-            _userOperationClaimService = userOperationClaimService;
-            _operationClaimService = operationClaimService;
+          _operationClaimService = operationClaimService;
             _otpService = otpService;
+            _userRules = userRules;
+            _userOperationClaimDal = userOperationClaimDal;
         }
 
         public IDataResult<User> Register(UserForRegisterDto user)
@@ -53,54 +58,43 @@ namespace Business.Concrete
             var userOperationClaim = new UserOperationClaim
             {
                 UserId = newUser.UserId,
-                OperationClaimId = _operationClaimService.GetByName(OperationClaims.NewMember.ToString()).Data
+                OperationClaimId = _operationClaimService.GetByName("new member").Data
                     .OperationClaimId
             };
-            _userOperationClaimService.Add(userOperationClaim);
+            _userOperationClaimDal.Add(userOperationClaim);
             return new SuccessDataResult<User>(newUser, Messages.UserRegistered);
         }
-        
 
-        public void SendNewPassword(string email, string name, string password)
+
+        private void SendNewPassword(string email, string name, string password)
         {
             var mail = new Mail
             {
                 ToEmail = email,
                 Subject = "Yeni parolan burada!",
-                TextBody = $"Sevgili {name}, Silversoft'a hoş geldin. İşte yeni parolan: {password} . Lütfen parolanı daha sonra değiştirmeyi ihmal etme.",
-                ToFullName = name,
+                TextBody =
+                    $"Sevgili {name}, Silversoft'a hoş geldin. İşte yeni parolan: {password} . Lütfen parolanı daha sonra değiştirmeyi ihmal etme.",
+                ToFullName = name
             };
             _mailService.Send(mail);
-            
         }
-
 
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
             var userToCheck = _userService.GetByUserName(userForLoginDto.Username).Data;
-            var userRules = new UserRules(_userService);
-            var result = BusinessRules.Run(
-                userRules.CheckIfUserNull(userToCheck),
-                userRules.CheckIfUserNotExist(userToCheck.UserId),
-                userRules.CheckIfPasswordCorrect(userForLoginDto.Password, userToCheck.PasswordHash,
-                    userToCheck.PasswordSalt),
-                userRules.CheckIfUserStatus(userToCheck.Status)
-            );
-            if(result != null) return new ErrorDataResult<User>(result.Message);
-
+            _userRules.CheckIfUserNull(userToCheck);
+            _userRules.CheckIfUserStatus(userToCheck.Status);
+            _userRules.CheckIfPasswordCorrect(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt);
             return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
         }
 
         public IResult UserExists(UserForRegisterDto user)
         {
-            var rules = new UserRules(_userService);
-            var result = BusinessRules.Run(
-                rules.CheckIfEmailExist(user.Email,0),
-                rules.CheckIfUserNameExist(user.UserName,0),
-                rules.CheckIfStudentNumberExist(user.StudentNumber,0)
-            );
-            return result ?? new SuccessResult();
+            _userRules.CheckIfEmailExist(user.Email);
+            _userRules.CheckIfStudentNumberExist(user.StudentNumber);
+            _userRules.CheckIfUserNameExist(user.UserName);
+            return new SuccessResult();
         }
 
         public IDataResult<AccessToken> CreateAccessToken(User user)
@@ -113,21 +107,17 @@ namespace Business.Concrete
         public IResult ChangePassword(ChangePasswordDto changePasswordDto, CheckOtpDto checkOtpDto)
         {
             var userToCheck = _userService.GetByEmail(changePasswordDto.Email).Data;
-            if (userToCheck == null)
-                return new ErrorResult(Messages.UserNotFound);
-            
-            var rules = new UserRules(_userService);
-            var result = BusinessRules.Run(
-                rules.CheckIfPasswordCorrect(changePasswordDto.CurrentPassword, userToCheck.PasswordHash,
-                    userToCheck.PasswordSalt),
-                rules.CheckIfPasswordsSame(changePasswordDto)
-            );
-            if (result != null) return new ErrorResult(result.Message);
+            _userRules.CheckIfUserNull(userToCheck);
+            _userRules.CheckIfPasswordsSame(changePasswordDto);
+            _userRules.CheckIfPasswordCorrect(changePasswordDto.CurrentPassword, userToCheck.PasswordHash,
+                userToCheck.PasswordSalt);
+  
             var otpResult = _otpService.CheckOtp(checkOtpDto);
             if (!otpResult.Success)
             {
                 return otpResult;
             }
+
             HashingHelper.CreatePasswordHash(changePasswordDto.NewPassword, out var passwordHash,
                 out var passwordSalt);
             userToCheck.PasswordHash = passwordHash;
@@ -139,12 +129,7 @@ namespace Business.Concrete
         public IResult ForgotPassword(ForgotPasswordDto forgotPasswordDto)
         {
             var user = _userService.GetByEmail(forgotPasswordDto.Email).Data;
-            var rules = new UserRules(_userService);
-            var result = BusinessRules.Run(
-                rules.CheckIfUserNull(user),
-                rules.CheckIfUserNameNotExist(user.UserName)
-            );
-            if (result != null) return new ErrorResult(result.Message);
+            _userRules.CheckIfUserNull(user);
             var password = PasswordHelper.GeneratePassword();
             HashingHelper.CreatePasswordHash(password, out var passwordHash, out var passwordSalt);
             user.PasswordHash = passwordHash;
@@ -154,6 +139,6 @@ namespace Business.Concrete
                 return updateResult;
             SendNewPassword(user.Email, user.UserName, password);
             return new SuccessResult(Messages.PasswordSendToYourMail);
-        }   
+        }
     }
 }

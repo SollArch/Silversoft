@@ -1,28 +1,27 @@
-using Business.Abstract;
 using Business.Constants;
+using Business.Rules.Abstract;
+using Core.Exceptions;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 
 namespace Business.Rules
 {
-    public class OperationClaimRules
+    public class OperationClaimRules : IOperationClaimRules
     {
-        private readonly IOperationClaimService _operationClaimService;
+        private readonly IOperationClaimDal _operationClaimDal;
 
-        public OperationClaimRules( IOperationClaimService operationClaimService)
+        public OperationClaimRules(IOperationClaimDal operationClaimDal)
         {
-            _operationClaimService = operationClaimService;
+            _operationClaimDal = operationClaimDal;
         }
-        
-        public IResult CheckIfNameExist(string operationClaimName)
-        {
-            var result = _operationClaimService.GetByName(operationClaimName);
-            if (result.Data != null)
-            {
-                return new ErrorResult(Messages.ThisOperationClaimNameAlreadyExists);
-            }
 
-            return new SuccessResult();
+        public void CheckIfNameExist(string operationClaimName)
+        {
+            var result = _operationClaimDal.Get(oc => oc.OperationClaimName.Equals(operationClaimName));
+            if (result != null)
+            {
+                throw new BusinessException(Messages.ThisOperationClaimNameAlreadyExists);
+            }
         }
     }
 }

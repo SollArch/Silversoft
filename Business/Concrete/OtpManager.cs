@@ -1,14 +1,15 @@
 using System;
 using Business.Abstract;
 using Business.Constants;
-using Business.Rules;
+using Business.Rules.Abstract;
+using Core.Aspects.Autofac.Caching;
 using Core.Entities.Concrete;
 using Core.Mailing;
-using Core.Utilities.Business;
 using Core.Utilities.Results;
+using Core.Utilities.Security.Otp;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using Entities.DTO;
+using Entities.DTO.Post.Otp;
 
 namespace Business.Concrete
 {
@@ -17,32 +18,25 @@ namespace Business.Concrete
         private readonly IOtpDal _otpDal;
         private readonly IMailService _mailService;
         private readonly IUserService _userService;
+        private readonly IOtpRules _otpRules;
 
-        public OtpManager(IMailService mailService, IOtpDal otpDal, IUserService userService)
+        public OtpManager(IMailService mailService, IOtpDal otpDal, IUserService userService, IOtpRules otpRules)
         {
             _mailService = mailService;
             _otpDal = otpDal;
             _userService = userService;
+            _otpRules = otpRules;
         }
 
         public IDataResult<User> CheckOtp(CheckOtpDto checkOtpDto)
         {
-            var otp = _otpDal.Get(x => x.UserName == checkOtpDto.UserName);
-            if (otp ==null)
-            {
-                return new ErrorDataResult<User>(Messages.OtpNotFound);
-            }
-            var otpRules = new OtpRules(this);
-            var result = BusinessRules.Run(
-                
-                otpRules.CheckIfOtpExpired(otp),
-                otpRules.CheckIfOtpMatch(otp, checkOtpDto.Otp)
-                );
-            if (result != null)
-                return new ErrorDataResult<User>(result.Message);
-            var user = _userService.GetByUserName(checkOtpDto.UserName);
+            var otp = GetByUserName(checkOtpDto.UserName).Data;
+            _otpRules.CheckIfOtpNull(otp);
+            _otpRules.CheckIfOtpExpired(otp.ExpirationDate);
+            _otpRules.CheckIfOtpMatch(otp.OneTimePassword, checkOtpDto.Otp);
+            var userResult = _userService.GetByUserName(checkOtpDto.UserName);
             _otpDal.Delete(otp);
-            return user;
+            return userResult;
         }
 
         public IResult SendOtp(SendOtpDto sendOtpDto)
@@ -63,6 +57,24 @@ namespace Business.Concrete
             _otpDal.Add(otp);
             _mailService.Send(mail);
             return new SuccessResult(Messages.OtpSended);
+        }
+
+        public IDataResult<string> GenerateOtp()
+        {
+            return new SuccessDataResult<string>(data: OtpHelper.GenerateOtp());
+        }
+        
+        [CacheRemoveAspect("IOtpService.Get")]
+        public IResult Delete(Otp otp)
+        {
+            _otpDal.Delete(otp);
+            return new SuccessResult();
+        }
+
+        [CacheAspect]
+        public IDataResult<Otp> GetByUserName(string userName)
+        {
+            return new SuccessDataResult<Otp>(_otpDal.Get(o => o.UserName == userName));
         }
     }
 }

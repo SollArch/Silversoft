@@ -1,108 +1,92 @@
-using Business.Abstract;
 using Business.Constants;
+using Business.Rules.Abstract;
 using Core.Entities.Concrete;
-using Core.Utilities.Results;
+using Core.Exceptions;
 using Core.Utilities.Security.Hashing;
-using Entities.DTO;
+using DataAccess.Abstract;
+using Entities.DTO.Post.Auth;
 
 namespace Business.Rules
 {
-    public class UserRules
+    public class UserRules : IUserRules
     {
-        private readonly IUserService _userService;
+        private readonly IUserDal _userDal;
 
-        public UserRules( IUserService userService)
+        public UserRules(IUserDal userDal)
         {
-            _userService = userService;
+            _userDal = userDal;
         }
 
-        public  IResult CheckIfStudentNumberExist(string studentNumber, int userId)
+
+        public void CheckIfStudentNumberExist(string studentNumber, int userId = 0)
         {
             
-            var result = _userService.GetByStudentNumber(studentNumber);
-            if (result.Data != null && result.Data.UserId != userId)
+            var result = _userDal.Get(u => u.StudentNumber.Equals(studentNumber));
+            if (result != null && result.UserId != userId)
             {
-                return new ErrorResult(Messages.ThisStudentNumberAlreadyExists);
+                throw new BusinessException(Messages.ThisStudentNumberAlreadyExists);
             }
-
-            return new SuccessResult();
         }
 
-        public IResult CheckIfEmailExist(string userEmail, int userId)
+        public void CheckIfEmailExist(string userEmail, int userId = 0)
         {
-            var result = _userService.GetByEmail(userEmail);
-            if (result.Data != null && result.Data.UserId != userId)
+            var result = _userDal.Get(u => u.Email.Equals(userEmail));
+            if (result != null && result.UserId != userId)
             {
-                return new ErrorResult(Messages.ThisEmailAlreadyExists);
+                throw new BusinessException(Messages.ThisEmailAlreadyExists);
             }
-
-            return new SuccessResult();
+            
         }
 
-        public IResult CheckIfUserNameExist(string userName, int userId)
+        public void CheckIfUserNameExist(string userName, int userId = 0)
         {
-            var result = _userService.GetByUserName(userName);
-            if (result.Data != null && result.Data.UserId != userId)
+            var result = _userDal.Get( u => u.UserName.Equals(userName));
+            if (result != null && result.UserId != userId)
             {
-                return new ErrorResult(Messages.ThisUserNameAlreadyExists);
+                throw new BusinessException(Messages.ThisUserNameAlreadyExists);
             }
-
-            return new SuccessResult();
         }
 
-        public IResult CheckIfUserNotExist(int userId)
+        public void CheckIfUserNotExist(int userId)
         {
-            var result = _userService.GetById(userId);
+            var result = _userDal.Get(u => u.UserId.Equals(userId));
             if (result == null)
             {
-                return new ErrorResult(Messages.UserNotFound);
+                throw new BusinessException(Messages.UserNotFound);
             }
-
-            return new SuccessResult();
-        }
-        public IResult CheckIfUserNameNotExist(string userName)
-        {
-            var result = _userService.GetByUserName(userName);
-            if (result.Data == null)
-            {
-                return new ErrorResult(Messages.ThisUserNameAlreadyExists);
-            }
-
-            return new SuccessResult();
         }
 
-        public IResult CheckIfUserNull(User user)
+
+        public void CheckIfUserNull(User user)
         {
             if (user == null)
             {
-                return new ErrorResult(Messages.UserNotFound);
+                throw new BusinessException(Messages.UserNotFound);
             }
-            return new SuccessResult();
         }
 
-        public IResult CheckIfPasswordCorrect(string password,byte[] passwordHash,byte[] passwordSalt)
+        public void CheckIfPasswordCorrect(string password,byte[] passwordHash,byte[] passwordSalt)
         {
             if (!HashingHelper.VerifyPasswordHash(password, passwordHash, passwordSalt))
             {
-                return new ErrorResult(Messages.PasswordError);
+                throw new BusinessException(Messages.PasswordError);
             }
-            return new SuccessResult();
         }
 
-        public IResult CheckIfUserStatus(bool status)
+        public void CheckIfUserStatus(bool status)
         {
             if (!status)
             {
-                return new ErrorResult(Messages.UserWasBlocked);
+                throw new BusinessException(Messages.UserWasBlocked);
             }
-            return new SuccessResult();
+
         }
 
-        public IResult CheckIfPasswordsSame(ChangePasswordDto changePasswordDto)
+        public void CheckIfPasswordsSame(ChangePasswordDto changePasswordDto)
         {
             if(changePasswordDto.NewPassword == changePasswordDto.CurrentPassword)
-                return new ErrorResult(Messages.PasswordsSame);
-            return new SuccessResult();
+                throw new BusinessException(Messages.PasswordsSame);
+
         }
     }
 }

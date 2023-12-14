@@ -1,6 +1,6 @@
 using Business.Abstract;
-using Core.Utilities.Security.Otp;
-using Entities.DTO;
+using Entities.DTO.Post.Auth;
+using Entities.DTO.Post.Otp;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApPI.Controllers;
@@ -28,16 +28,19 @@ public class AuthController : Controller
         {
             return BadRequest(userExists.Message);
         }
-
+    
         var registerResult = _authService.Register(userForRegisterDto);
+        if (!registerResult.Success)
+            return BadRequest(registerResult);
         var result = _authService.CreateAccessToken(registerResult.Data);
-        if (result.Success)
+        if (!result.Success)
         {
-            return Ok(result);
+            return BadRequest(result);
         }
-
-        return BadRequest(result.Message);
+        return Ok(result);
     }
+    
+
     [HttpPost("login")]
     public IActionResult Login([FromBody] UserForLoginDto userForLoginDto)
     {
@@ -46,13 +49,11 @@ public class AuthController : Controller
         {
             return BadRequest(userToLogin.Message);
         }
-        var sendOtpDto = new SendOtpDto
+        var result = _authService.CreateAccessToken(userToLogin.Data);
+        if (result.Success)
         {
-            Email = userToLogin.Data.Email,
-            Otp = OtpHelper.GenerateOtp(),
-            UserName = userToLogin.Data.UserName
-        };
-        var result = _otpService.SendOtp(sendOtpDto);
+            return Ok(result.Data);
+        }
         if(result.Success)
             return Ok(result.Message);
         return BadRequest(result.Message);
@@ -65,7 +66,7 @@ public class AuthController : Controller
         var sendOtpDto = new SendOtpDto
         {
             Email = forgotPasswordDto.Email,
-            Otp = OtpHelper.GenerateOtp(),
+            Otp = _otpService.GenerateOtp().Data,
             UserName = user.UserName
         };
         var result = _otpService.SendOtp(sendOtpDto);
@@ -79,7 +80,7 @@ public class AuthController : Controller
         var sendOtpDto = new SendOtpDto
         {
             Email = email,
-            Otp = OtpHelper.GenerateOtp(),
+            Otp = _otpService.GenerateOtp().Data,
             UserName = user.UserName
         };
         var otpResult = _otpService.SendOtp(sendOtpDto);
@@ -89,4 +90,5 @@ public class AuthController : Controller
         }
         return Ok(otpResult);
     }
+    
 }

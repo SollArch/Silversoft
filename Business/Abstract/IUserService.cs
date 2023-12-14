@@ -15,5 +15,6 @@ namespace Business.Abstract
         IResult Add(User user);
         IResult Update(User user);
         IResult Delete(User user);
+        void AddAdmin();
     }
 }

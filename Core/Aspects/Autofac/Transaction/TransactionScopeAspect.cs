@@ -4,24 +4,23 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Transactions;
-namespace Core.Aspects.Autofac.Transaction
+namespace Core.Aspects.Autofac.Transaction;     
+
+public class TransactionScopeAspect : MethodInterception
 {
-    public class TransactionScopeAspect : MethodInterception
+    public override void Intercept(IInvocation invocation)
     {
-        public override void Intercept(IInvocation invocation)
+        using (TransactionScope transactionScope = new TransactionScope())
         {
-            using (TransactionScope transactionScope = new TransactionScope())
+            try
             {
-                try
-                {
-                    invocation.Proceed();
-                    transactionScope.Complete();
-                }
-                catch (System.Exception)
-                {
-                    transactionScope.Dispose();
-                    throw;
-                }
+                invocation.Proceed();
+                transactionScope.Complete();
+            }
+            catch (System.Exception)
+            {
+                transactionScope.Dispose();
+                throw;
             }
         }
     }

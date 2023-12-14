@@ -1,13 +1,15 @@
+using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Business.Abstract;
+using AutoMapper;
 using Business.Concrete;
+using Business.DependencyResolvers.Autofac;
+using Business.MappingProfiles.User;
+using Business.Rules;
 using Core.DependencyResolver;
-using Core.Extentions;
-using Core.Mailing;
+using Core.Extensions;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.Jwt;
-using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Context;
 using Microsoft.IdentityModel.Tokens;
@@ -15,36 +17,35 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
-
 builder.Services.AddTransient<DatabaseContext>();
 
-builder.Services.AddTransient<IAuthService, AuthManager>();
-builder.Services.AddTransient<ITokenHelper, JwtHelper>();
-builder.Services.AddTransient<IMailService, MailKitMailService>();
+var claimManager = new OperationClaimManager(new EfOperationClaimDal(), new OperationClaimRules(new EfOperationClaimDal()));
+claimManager.AddAdminClaim();
+var userManager = new UserManager(new EfUserDal(),new UserRules(new EfUserDal()));
+userManager.AddAdmin();
+var userOperationClaimManager = new UserOperationClaimManager(new EfUserOperationClaimDal());
+userOperationClaimManager.AddAdminClaimToAdminUser();
 
-builder.Services.AddTransient<IUserDal,EfUserDal>();
-builder.Services.AddTransient<IUserService,UserManager>();
-
-builder.Services.AddTransient<IOperationClaimDal,EfOperationClaimDal>();
-builder.Services.AddTransient<IOperationClaimService,OperationClaimManager>();
-
-builder.Services.AddTransient<IUserOperationClaimDal,EfUserOperationClaimDal>();
-builder.Services.AddTransient<IUserOperationClaimService,UserOperationClaimManager>();
-
-builder.Services.AddTransient<IOtpDal,EfOtpDal>();
-builder.Services.AddTransient<IOtpService, OtpManager>();
-
-
-
-
-
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
+builder.Services.AddAutofac();
+builder.Services.AddDependencyResolvers(new ICoreModule[]
+{
+    new CoreModule()
+});
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).ConfigureContainer<ContainerBuilder>(
+    containerBuilder =>
+    {
+        containerBuilder.RegisterModule(new AutofacBusinessModule());
+    } );
+var mappingConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new UserMappingProfile());
+});
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
@@ -80,16 +81,11 @@ builder.Services.AddSwaggerGen(opt =>
         }
     });
 });
-builder.Services.AddAutofac();
-
-builder.Services.AddDependencyResolvers(new ICoreModule[]
-{
-    new CoreModule()
-});
 
 
+IMapper mapper = mappingConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
 var app = builder.Build();
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

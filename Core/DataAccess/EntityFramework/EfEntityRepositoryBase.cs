@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using Core.Entities.Abstract;
 
 namespace Core.DataAccess.EntityFramework

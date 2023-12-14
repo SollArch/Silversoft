@@ -9,7 +9,7 @@ namespace DataAccess.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(
-                connectionString: @"Server=MFBILGIN\MFBILGIN;Database=silversoft;Trusted_Connection=true");
+                connectionString: @"Server=MFBILGIN\MFBILGIN;Database=silversoft;Trusted_Connection=true;TrustServerCertificate=True;");
         }
 
         public DbSet<User> Users { get; set; }

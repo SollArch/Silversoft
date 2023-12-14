@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Castle.DynamicProxy;
+﻿using Castle.DynamicProxy;
 using Core.CrossCuttingConcerns.Caching;
 using Core.Utilities.Interceptors;
 using Core.Utilities.IoC;
@@ -10,18 +7,22 @@ namespace Core.Aspects.Autofac.Caching
 {
     public class CacheRemoveAspect : MethodInterception
     {
-        private readonly string _pattern;
+        private readonly string _patterns;
         private readonly ICacheManager _cacheManager;
 
-        public CacheRemoveAspect(string pattern)
+        public CacheRemoveAspect(string patterns)
         {
-            _pattern = pattern;
+            _patterns = patterns;
             _cacheManager = ServiceTool.ServiceProvider.GetService<ICacheManager>();
         }
 
         protected override void OnSuccess(IInvocation invocation)
         {
-            _cacheManager.RemoveByPattern(_pattern);
+            foreach (var pattern in _patterns.Split(','))
+            {
+                _cacheManager.RemoveByPattern(pattern.Trim());
+            }
+            
         }
     }
 }
