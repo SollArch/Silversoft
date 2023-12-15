@@ -15,28 +15,6 @@ public class UserOperationClaimsController : Controller
         _operationClaimService = operationClaimService;
     }
     
-    [HttpGet("getbyuserid/{userId}")]
-    public IActionResult GetByUserId([FromRoute] int userId)
-    {
-        var result = _operationClaimService.GetByUserId(userId);
-        if (result.Success)
-        {
-            return Ok(result.Data);
-        }
-        return BadRequest(result.Message);
-    }
-    
-    [HttpGet("getbyuseroperationclaimid/{userOperationClaimId}")]
-    public IActionResult GetByUserOperationClaimId([FromRoute] int userOperationClaimId)
-    {
-        var result = _operationClaimService.GetById(userOperationClaimId);
-        if (result.Success)
-        {
-            return Ok(result.Data);
-        }
-        return BadRequest(result.Message);
-    }
-    
     [HttpPost("add")]
     public IActionResult Add([FromBody] UserOperationClaim userOperationClaim)
     {
