@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Mail;
 using Core.Mailing;
+using Core.Utilities.Mailing;
 using Microsoft.Extensions.Configuration;
 namespace Business.Concrete
 {
@@ -15,13 +16,13 @@ namespace Business.Concrete
             _mailSettings = configuration.GetSection("MailSettings").Get<MailSettings>();
         }
 
-        public void Send(Mail mail)
+        public void Send(Mail mail, string password)
         {
             var smtpClient = new SmtpClient();
             smtpClient.Port = _mailSettings.Port;
             smtpClient.Host = _mailSettings.Server;
             smtpClient.EnableSsl = true;
-            smtpClient.Credentials = new NetworkCredential(_mailSettings.SenderEmail, _mailSettings.Password);
+            smtpClient.Credentials = new NetworkCredential(_mailSettings.SenderEmail, password);
             
             var mailMessage = new MailMessage();
             mailMessage.From = new MailAddress(_mailSettings.SenderEmail, _mailSettings.SenderFullName);
