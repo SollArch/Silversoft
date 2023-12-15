@@ -33,6 +33,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<OtpManager>().As<IOtpService>();
             builder.RegisterType<EfOtpDal>().As<IOtpDal>();
 
+            builder.RegisterType<PasswordManager>().As<IPasswordService>();
+            builder.RegisterType<EfPasswordDal>().As<IPasswordDal>();
+            
             builder.RegisterType<UserRules>().As<IUserRules>();
             builder.RegisterType<OperationClaimRules>().As<IOperationClaimRules>();
             builder.RegisterType<OtpRules>().As<IOtpRules>();
