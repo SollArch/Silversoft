@@ -20,5 +20,6 @@ namespace DataAccess.Context
         public DbSet<Event> Events { get; set; }
         public DbSet<Prize> Prizes { get; set; }
         public DbSet<Otp> Otps { get; set; }
+        public DbSet<AdminPassword> AdminPasswords { get; set; }
     }
 }
