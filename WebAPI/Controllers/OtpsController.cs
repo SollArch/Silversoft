@@ -11,6 +11,7 @@ public class OtpsController : Controller
 {
     private readonly IOtpService _otpService;
     private readonly IAuthService _authService;
+
     public OtpsController(IOtpService otpService, IAuthService authService)
     {
         _otpService = otpService;
@@ -40,9 +41,9 @@ public class OtpsController : Controller
     }
     
      [HttpPost("checkotpforchangepassword")]
-     public IActionResult CheckOtpForChangePassword([FromBody] CheckOtpDto checkOtpDto,[FromQuery] ChangePasswordDto changePasswordDto)
+     public IActionResult CheckOtpForChangePassword([FromBody] CheckOtpAndChangePasswordDto checkOtpAndChangePasswordDto)
      {
-         var result = _authService.ChangePassword(changePasswordDto,checkOtpDto);
+         var result = _authService.ChangePassword(checkOtpAndChangePasswordDto.ChangePasswordDto,checkOtpAndChangePasswordDto.CheckOtpDto);
          if (result.Success)
          {
              return Ok(result.Message);
