@@ -52,7 +52,7 @@ public class OperationClaimsController : Controller
     }
     
     [HttpPost("add")]
-    public IActionResult Add(OperationClaim operationClaim)
+    public IActionResult Add([FromBody]OperationClaim operationClaim)
     {
         var result = _operationClaimService.Add(operationClaim);
         if (result.Success)
@@ -63,8 +63,8 @@ public class OperationClaimsController : Controller
         return BadRequest(result);
     }
     
-    [HttpPost("update")]
-    public IActionResult Update(OperationClaim operationClaim)
+    [HttpPut("update")]
+    public IActionResult Update([FromBody]OperationClaim operationClaim)
     {
         var result = _operationClaimService.Update(operationClaim);
         if (result.Success)
@@ -75,8 +75,8 @@ public class OperationClaimsController : Controller
         return BadRequest(result);
     }
     
-    [HttpPost("delete")]
-    public IActionResult Delete(OperationClaim operationClaim)
+    [HttpDelete("delete")]
+    public IActionResult Delete([FromBody]OperationClaim operationClaim)
     {
         var result = _operationClaimService.Delete(operationClaim);
         if (result.Success)
