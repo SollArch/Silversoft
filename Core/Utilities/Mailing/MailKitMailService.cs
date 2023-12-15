@@ -7,17 +7,14 @@ namespace Core.Utilities.Mailing
 {
     public class MailKitMailService : IMailService
     {
-        private readonly IConfiguration _configuration;
         private readonly MailSettings _mailSettings;
-        
 
         public MailKitMailService(IConfiguration configuration)
         {
-            _configuration = configuration;
             _mailSettings = configuration.GetSection("MailSettings").Get<MailSettings>();
         }
 
-        public void Send(Mail mail)
+        public void Send(Mail mail,string password)
         {
             MimeMessage email = new MimeMessage();
 
@@ -35,7 +32,7 @@ namespace Core.Utilities.Mailing
 
             SmtpClient smtp = new SmtpClient();
             smtp.Connect(_mailSettings.Server, _mailSettings.Port);
-            smtp.Authenticate(_mailSettings.UserName, _mailSettings.Password);
+            smtp.Authenticate(_mailSettings.UserName, password);
             smtp.Send(email);
             smtp.Disconnect(true);
         }

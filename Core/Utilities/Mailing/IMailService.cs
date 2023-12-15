@@ -1,7 +1,9 @@
-namespace Core.Mailing
+using Core.Mailing;
+
+namespace Core.Utilities.Mailing
 {
     public interface IMailService
     {
-        void Send(Mail mail);
+        void Send(Mail mail,string password);
     }
 }
