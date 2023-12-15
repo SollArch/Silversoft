@@ -73,7 +73,7 @@ namespace Business.Concrete
                 ToEmail = email,
                 Subject = "Yeni parolan burada!",
                 TextBody =
-                    $"Sevgili {name}, Silversoft'a hoş geldin. İşte yeni parolan: {password} . Lütfen parolanı daha sonra değiştirmeyi ihmal etme.",
+                    $"Sevgili {name}, Silversoft'a hoş geldin. İşte yeni parolan: {password}. Lütfen parolanı daha sonra değiştirmeyi ihmal etme.",
                 ToFullName = name
             };
             _mailService.Send(mail);
