@@ -73,8 +73,8 @@ public class AuthController : Controller
         return Ok(result.Message);
     }
     
-    [HttpPost("changepassword")]
-    public IActionResult ChangePassword([FromQuery] string email)
+    [HttpPost("changepassword/{email}")]
+    public IActionResult ChangePassword([FromRoute] string email)
     {
         var user = _userService.GetByEmail(email).Data;
         var sendOtpDto = new SendOtpDto
