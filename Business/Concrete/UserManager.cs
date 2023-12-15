@@ -7,6 +7,7 @@ using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
 using DataAccess.Abstract;
+using Entities.DTO.Post.User;
 
 namespace Business.Concrete
 {
@@ -68,6 +69,14 @@ namespace Business.Concrete
         [CacheRemoveAspect("IUserService.Get")]
         public IResult Update(User user)
         {
+            var userFromDatabase = _userDal.Get(u => u.UserId.Equals(user.UserId));
+            if(user.PasswordHash.Length == 0)
+            {
+                user.PasswordHash = userFromDatabase.PasswordHash;
+                user.PasswordSalt = userFromDatabase.PasswordSalt;
+                user.Point = userFromDatabase.Point;
+                user.Status = userFromDatabase.Status;
+            }
             _userRules.CheckIfStudentNumberExist(user.StudentNumber, user.UserId);
             _userRules.CheckIfEmailExist(user.Email, user.UserId);
             _userRules.CheckIfUserNameExist(user.UserName, user.UserId);
@@ -76,10 +85,13 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("IUserService.Get")]
-        public IResult Delete(User user)
+        public IResult Delete(UserForDelete userForDelete)
         {
-            _userRules.CheckIfUserNotExist(user.UserId);
-            _userDal.Delete(user);
+            
+            _userRules.CheckIfUserNotExist(userForDelete.UserId);
+            var user = _userDal.Get(u => u.UserId.Equals(userForDelete.UserId));
+            user.Status = false;
+            _userDal.Update(user);
             return new SuccessResult(Messages.UserDeleted);
         }
 
