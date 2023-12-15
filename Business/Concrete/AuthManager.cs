@@ -4,6 +4,7 @@ using Business.Rules;
 using Business.Rules.Abstract;
 using Core.Entities.Concrete;
 using Core.Mailing;
+using Core.Utilities.Mailing;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.Jwt;
@@ -23,10 +24,11 @@ namespace Business.Concrete
         private readonly IUserOperationClaimDal _userOperationClaimDal;
         private readonly IOtpService _otpService;
         private readonly IUserRules _userRules;
+        private readonly IPasswordService _passwordService;
 
         public AuthManager(IMailService mailService, ITokenHelper tokenHelper, IUserService userService,
             IOperationClaimService operationClaimService,
-            IOtpService otpService, IUserRules userRules, IUserOperationClaimDal userOperationClaimDal)
+            IOtpService otpService, IUserRules userRules, IUserOperationClaimDal userOperationClaimDal, IPasswordService passwordService)
         {
             _mailService = mailService;
             _tokenHelper = tokenHelper;
@@ -35,6 +37,7 @@ namespace Business.Concrete
             _otpService = otpService;
             _userRules = userRules;
             _userOperationClaimDal = userOperationClaimDal;
+            _passwordService = passwordService;
         }
 
         public IDataResult<User> Register(UserForRegisterDto user)
@@ -76,7 +79,8 @@ namespace Business.Concrete
                     $"Sevgili {name}, Silversoft'a hoş geldin. İşte yeni parolan: {password}. Lütfen parolanı daha sonra değiştirmeyi ihmal etme.",
                 ToFullName = name
             };
-            _mailService.Send(mail);
+            var adminPassword = _passwordService.GetPassword();
+            _mailService.Send(mail,adminPassword);
         }
 
 
