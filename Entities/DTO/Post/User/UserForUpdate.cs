@@ -1,6 +1,8 @@
+using Core.Entities.Abstract;
+
 namespace Entities.DTO.Post.User;
 
-public class UserForUpdate
+public class UserForUpdate : IDto
 {
     public int UserId { get; set; }
     public string FirstName { get; set; }

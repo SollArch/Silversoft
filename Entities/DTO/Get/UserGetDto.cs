@@ -1,6 +1,8 @@
+using Core.Entities.Abstract;
+
 namespace Entities.DTO.Get;
 
-public class UserGetDto
+public class UserGetDto : IDto
 {
     public int UserId { get; set; }
     public string FirstName { get; set; }
