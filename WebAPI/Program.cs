@@ -3,7 +3,7 @@ using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using Business.Concrete;
 using Business.DependencyResolvers.Autofac;
-using Business.MappingProfiles.User;
+using Business.Profiles;
 using Business.Rules;
 using Core.DependencyResolver;
 using Core.Extensions;
