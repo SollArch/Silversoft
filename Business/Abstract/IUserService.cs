@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
+using Entities.DTO.Post.User;
 
 namespace Business.Abstract
 {
@@ -14,7 +15,7 @@ namespace Business.Abstract
         IDataResult<User> GetById(int id);
         IResult Add(User user);
         IResult Update(User user);
-        IResult Delete(User user);
+        IResult Delete(UserForDelete userForDelete);
         void AddAdmin();
     }
 }
