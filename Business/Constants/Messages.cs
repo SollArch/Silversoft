@@ -42,5 +42,10 @@ namespace Business.Constants
         public const string OtpNotMatch = "Bu kod doğru görünmüyor. Lütfen tekrar dene.";
         public const string OtpSended = "Doğrulama kodun mail adresine gönderildi. Lütfen kontrol et.";
         public const string UserHasOtp = "Sana daha önce bir kod göndermişiz gibi duruyor. Lütfen mail adresini kontrol et.";
+        
+        //Validaiton Messages
+            //OpertaionClaim
+        public const string OperationClaimNameMinimumLength = "Yetki adı en az 3 karakter olmalıdır.";
+        
     }
 }
