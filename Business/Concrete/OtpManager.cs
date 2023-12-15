@@ -5,6 +5,7 @@ using Business.Rules.Abstract;
 using Core.Aspects.Autofac.Caching;
 using Core.Entities.Concrete;
 using Core.Mailing;
+using Core.Utilities.Mailing;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Otp;
 using DataAccess.Abstract;
@@ -19,13 +20,14 @@ namespace Business.Concrete
         private readonly IMailService _mailService;
         private readonly IUserService _userService;
         private readonly IOtpRules _otpRules;
-
-        public OtpManager(IMailService mailService, IOtpDal otpDal, IUserService userService, IOtpRules otpRules)
+        private readonly IPasswordService _passwordService;
+        public OtpManager(IMailService mailService, IOtpDal otpDal, IUserService userService, IOtpRules otpRules, IPasswordService passwordService)
         {
             _mailService = mailService;
             _otpDal = otpDal;
             _userService = userService;
             _otpRules = otpRules;
+            _passwordService = passwordService;
         }
 
         public IDataResult<User> CheckOtp(CheckOtpDto checkOtpDto)
@@ -55,7 +57,7 @@ namespace Business.Concrete
                 ExpirationDate = DateTime.Now.AddMinutes(30)
             };
             _otpDal.Add(otp);
-            _mailService.Send(mail);
+            _mailService.Send(mail,_passwordService.GetPassword());
             return new SuccessResult(Messages.OtpSended);
         }
 
