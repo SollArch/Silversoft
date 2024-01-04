@@ -8,7 +8,7 @@ public interface ICtfRules
 {
     public void CheckIfCtfNull(Ctf ctf);
     public void CheckTheAnswer(string ctfAnswer, string userAnswer);
-    public void CheckIfCtfIsActive(Ctf ctf);
+    public void CheckCtfIsActive(Ctf ctf);
     public void CheckIfCtfAlreadySolved(Guid ctfId, Guid userId);
     public Ctf SetNonUpdatableFields(Ctf ctf);
     public void SetCtfPoint(Ctf ctf);

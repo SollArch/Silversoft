@@ -9,7 +9,8 @@ public class DatabaseContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer(
-            connectionString: @"Server=MFBILGIN\MFBILGIN;Database=silversoft;Trusted_Connection=true;TrustServerCertificate=True;");
+            connectionString:
+            @"Server=MFBILGIN\MFBILGIN;Database=silversoft;Trusted_Connection=true;TrustServerCertificate=True;");
     }
 
     public DbSet<User> Users { get; set; }
@@ -26,4 +27,5 @@ public class DatabaseContext : DbContext
     public DbSet<Otp> Otps { get; set; }
     public DbSet<AdminPassword> AdminPasswords { get; set; }
     public DbSet<Like> Likes { get; set; }
-    public DbSet<CloudinaryConnection> CloudinaryConnections { get; set; } }
+    public DbSet<CloudinaryConnection> CloudinaryConnections { get; set; }
+}

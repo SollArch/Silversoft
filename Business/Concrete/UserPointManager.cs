@@ -5,6 +5,7 @@ using Business.Constants;
 using Business.ValidationRules.FluentValdation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
+using Core.Utilities.Security.Jwt;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
@@ -23,22 +24,16 @@ public class UserPointManager : IUserPointService
 
     [SecuredOperation("admin,student,member")]
     [ValidationAspect(typeof(UserPointValidator))]
-    public IResult Solve(UserPoint userPoint, Guid ctfId)
+    public IResult Solve(CtfSolve ctfSolve)
     {
-        userPoint.Id = Guid.NewGuid();
-        _userPointDal.Add(userPoint);
-        var ctfSolve = new CtfSolve
-        {
-            Id = Guid.NewGuid(),
-            CtfId = ctfId,
-            UserId = userPoint.UserId
-        };
-        _ctfSolveService.Add(ctfSolve);
+        ctfSolve.UserId = JwtHelper.GetAuthenticatedUserId();
+        _ctfSolveService.Add(ctfSolve);  
         return new SuccessResult(Messages.CtfSolved);
     }
 
     public IResult Add(UserPoint userPoint)
     {
+        userPoint.UserId = JwtHelper.GetAuthenticatedUserId();
         _userPointDal.Add(userPoint);
         return new SuccessResult(Messages.PointAdded);
     }

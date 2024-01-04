@@ -7,7 +7,7 @@ namespace Business.Abstract;
 
 public interface IUserPointService
 {
-    IResult Solve(UserPoint userPoint, Guid ctfId);
+    IResult Solve(CtfSolve ctfSolve);
     IResult Add(UserPoint userPoint);
 
 }

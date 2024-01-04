@@ -72,7 +72,7 @@ public class CtfRules : ICtfRules
         }
     }
 
-    public void CheckIfCtfIsActive(Ctf ctf)
+    public void CheckCtfIsActive(Ctf ctf)
     {
         if(!ctf.IsActive)
             throw new BusinessException(Messages.CtfIsNotActive);

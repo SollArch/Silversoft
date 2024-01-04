@@ -29,36 +29,33 @@ namespace DataAccess.Concrete.EntityFramework
         public UserGetDto GetUserDtoByEmail(string email)
         {
             using var context = new DatabaseContext();
-            var result = from user in context.Users
-                join solve in context.UserPoints
-                    on user.UserId equals solve.UserId
+            var userDto = (from user in context.Users
                 where user.Email == email
                 select new UserGetDto
                 {
                     UserId = user.UserId,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    Email = user.Email,
                     UserName = user.UserName,
-                    StudentNumber = user.StudentNumber,
-                    Point = context.UserPoints.Where(x => x.UserId == user.UserId).Sum(x => x.Point)
-                };
-            if (result.FirstOrDefault() != null) return result.FirstOrDefault();
-            
-            {
-                var user = Get(u => u.Email == email);
-                return new UserGetDto
-                {
-                    UserId = user.UserId,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
                     Email = user.Email,
-                    UserName = user.UserName,
                     StudentNumber = user.StudentNumber,
-                    Point = context.UserPoints.Where(x => x.UserId == user.UserId).Sum(x => x.Point)
-                };
-            }
+                    Point = user.Point
+                }).FirstOrDefault();
 
+            if (userDto == null) return null;
+            userDto.Point += context.UserPoints
+                .Where(up => up.UserId == userDto.UserId)
+                .Sum(up => up.Point);
+                
+            userDto.Point += context.CtfSolves
+                .Where(solve => solve.UserId == userDto.UserId)
+                .Join(context.Ctfs,
+                    solve => solve.CtfId,
+                    ctf => ctf.Id,
+                    (solve, ctf) => ctf.Point)
+                .Sum();
+
+            return userDto;
         }
     }
 }

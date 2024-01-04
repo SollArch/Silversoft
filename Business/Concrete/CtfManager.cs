@@ -20,16 +20,15 @@ public class CtfManager : ICtfService
 {
     private readonly ICtfDal _ctfDal;
     private readonly ICtfRules _ctfRules;
-    private readonly IUserPointService _userPointService;
+    
     private readonly IUserService _userService;
     private Guid _authenticatedUserId;
 
-    public CtfManager(ICtfDal ctfDal, ICtfRules ctfRules, IUserService userService, IUserPointService userPointService)
+    public CtfManager(ICtfDal ctfDal, ICtfRules ctfRules, IUserService userService)
     {
         _ctfDal = ctfDal;
         _ctfRules = ctfRules;
         _userService = userService;
-        _userPointService = userPointService;
     }
 
     [SecuredOperation("admin")]
@@ -91,13 +90,14 @@ public class CtfManager : ICtfService
     {
         _authenticatedUserId = JwtHelper.GetAuthenticatedUserId();
         _ctfRules.CheckIfCtfAlreadySolved(answerDto.CtfId, _authenticatedUserId);
+        
         var ctf = _ctfDal.Get(c => c.Id == answerDto.CtfId);
         _ctfRules.CheckIfCtfNull(ctf);
-        _ctfRules.CheckIfCtfIsActive(ctf);
+        _ctfRules.CheckCtfIsActive(ctf);
         _ctfRules.CheckTheAnswer(ctf.Answer, answerDto.Answer);
         _ctfRules.SetCtfPoint(ctf);
         ctf.NumberOfSolve++;
-        _ctfRules.SetCtfActivityBySolvabilityLimit(ctf);
+        _ctfRules.SetCtfActivityBySolvabilityLimit(ctf); 
         _ctfDal.Update(ctf);
         return new SuccessResult();
     }
@@ -109,7 +109,6 @@ public class CtfManager : ICtfService
         _authenticatedUserId = JwtHelper.GetAuthenticatedUserId();
         var user = _userService.GetById(_authenticatedUserId).Data;
         _ctfRules.CheckIfUserPointNotEnough(user.Point, 10);
-        _userPointService.Add(new UserPoint { UserId = _authenticatedUserId, Point = -10, Id = Guid.NewGuid() });
         var ctf = _ctfDal.Get(ctf => ctf.Id == ctfId);
         return new SuccessDataResult<HintDto>(new HintDto { Hint = ctf.Hint });
     }
@@ -122,7 +121,7 @@ public class CtfManager : ICtfService
         var ctf = _ctfDal.Get(ctf => ctf.Id == ctfId);
         _ctfRules.CheckIfHintAddUserIsCtfOwner(ctf, _authenticatedUserId);
         _ctfRules.CheckIfCtfNull(ctf);
-        _ctfRules.CheckIfCtfIsActive(ctf);
+        _ctfRules.CheckCtfIsActive(ctf);
         ctf.Hint += "," + hint;
         _ctfDal.Update(ctf);
         return new SuccessResult();

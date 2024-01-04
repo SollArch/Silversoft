@@ -100,8 +100,11 @@ public class CtfsController : Controller
      public IActionResult CheckAnswer([FromBody] CheckAnswerDto checkAnswerDto)
      {
         _ctfService.CheckAnswer(checkAnswerDto);
-        var solveDto =  _mapper.Map<UserPoint>(checkAnswerDto);
-        var result = _userPointService.Solve(solveDto, checkAnswerDto.CtfId);
+        var result = _userPointService.Solve(new CtfSolve
+        {
+            Id = Guid.NewGuid(),
+            CtfId = checkAnswerDto.CtfId,
+        });
         if (result.Success)
             return Ok(result);
         return BadRequest(result);
@@ -122,7 +125,9 @@ public class CtfsController : Controller
      [HttpGet("getHint")]
      public IActionResult GetHint([FromRoute] Guid ctfId)
      {
+       
          var result = _ctfService.GetHint(ctfId);
+         _userPointService.Add(new UserPoint { Point = -10, Id = Guid.NewGuid() });
          if (result.Success)
          {
              return Ok(result);
