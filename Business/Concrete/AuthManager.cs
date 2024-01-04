@@ -149,7 +149,7 @@ public class AuthManager : IAuthService
         HashingHelper.CreatePasswordHash(password, out var passwordHash, out var passwordSalt);
         user.PasswordHash = passwordHash;
         user.PasswordSalt = passwordSalt;
-        var updateResult = _userService.Update(user);
+        var updateResult = _userService.Update(user,true);
         if (!updateResult.Success)
             return updateResult;
         SendNewPassword(user.Email, user.UserName, password);

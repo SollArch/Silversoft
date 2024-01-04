@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Business.Abstract;
-using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.Rules.Abstract;
 using Business.ValidationRules.FluentValdation;
@@ -74,9 +73,8 @@ namespace Business.Concrete
             return new SuccessResult();
         }
         
-        [SecuredOperation("admin,student,member")]
         [CacheRemoveAspect("IUserService.Get")]
-        public IResult Update(User user)
+        public IResult Update(User user, bool fromForgetPassword = false)
         {
             var requestedUserId = Guid.Parse(_httpContextAccessor.HttpContext.User.GetAuthenticatedUserId());
             _userRules.CheckIfUpdateUserIdEqualsRequestUserId(user.UserId, requestedUserId);

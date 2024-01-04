@@ -84,5 +84,20 @@ namespace Business.Concrete
             };
             _operationClaimDal.Add(claim);
         }
+
+        public void AddClaims()
+        {
+            var claims = new List<string> { "student", "member"};
+            foreach (var claim in claims)
+            {
+                if (_operationClaimDal.Get(c => c.OperationClaimName.Equals(claim)) != null) continue;
+                var newClaim = new OperationClaim
+                {
+                    OperationClaimName = claim,
+                    OperationClaimId = Guid.NewGuid()
+                };
+                _operationClaimDal.Add(newClaim);
+            }
+        }
     }
 }

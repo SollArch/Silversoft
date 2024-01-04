@@ -87,10 +87,10 @@ using (var scope = app.Services.CreateScope())
 {
     var serviceProvider = scope.ServiceProvider;
     
-    // Burada servisleri kullanabilirsiniz
     var claimManager = serviceProvider.GetRequiredService<IOperationClaimService>();
     claimManager.AddAdminClaim();
-
+    claimManager.AddClaims();
+    
     var userManager = serviceProvider.GetRequiredService<IUserService>();
     userManager.AddAdmin();
 

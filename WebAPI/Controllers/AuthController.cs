@@ -52,11 +52,10 @@ public class AuthController : Controller
         var result = _authService.CreateAccessToken(userToLogin.Data);
         if (result.Success)
         {
-            return Ok(result.Data);
+            return Ok(result);
         }
-        if(result.Success)
-            return Ok(result.Message);
-        return BadRequest(result.Message);
+  
+        return BadRequest(result);
     }
     
     [HttpPost("forgotpassword")]
@@ -70,7 +69,7 @@ public class AuthController : Controller
             UserName = user.UserName
         };
         var result = _otpService.SendOtp(sendOtpDto);
-        return Ok(result.Message);
+        return Ok(result);
     }
     
     [HttpPost("changepassword")]

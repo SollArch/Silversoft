@@ -100,9 +100,9 @@ namespace Business.Rules
             user.Email = userFromDatabase.Email;
         }
 
-        public void CheckIfUpdateUserIdEqualsRequestUserId(Guid userId, Guid requestUserId)
+        public void CheckIfUpdateUserIdEqualsRequestUserId(Guid userId, Guid requestUserId, bool fromForgetPassword = false)
         {
-            if (userId != requestUserId)
+            if (userId != requestUserId && !fromForgetPassword)
             {
                 throw new BusinessException(Messages.AuthorizationDenied);
             }

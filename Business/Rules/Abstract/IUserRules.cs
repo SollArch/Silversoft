@@ -16,6 +16,6 @@ public interface IUserRules
     public void CheckIfUserStatus(bool status);
     public void CheckIfPasswordsSame(CheckOtpForChangePasswordDto checkOtpForChangePasswordDto);
     public void CheckIfRequestForUpdate(User user);
-    public void CheckIfUpdateUserIdEqualsRequestUserId(Guid userId, Guid requestUserId);
+    public void CheckIfUpdateUserIdEqualsRequestUserId(Guid userId, Guid requestUserId, bool fromForgetPassword = false);
 
 }

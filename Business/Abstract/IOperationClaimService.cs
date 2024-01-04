@@ -14,5 +14,6 @@ namespace Business.Abstract
         IDataResult<OperationClaim> GetByName(string operationClaimName);
         IDataResult<List<OperationClaim>> GetAll();
         void AddAdminClaim();
+        void AddClaims();
     }
 }

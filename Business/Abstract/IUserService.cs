@@ -15,7 +15,7 @@ namespace Business.Abstract
         IDataResult<User> GetById(Guid userId);
         IDataResult<User> GetByUserName(string userName);
         IResult Add(User user);
-        IResult Update(User user);
+        IResult Update(User user,bool fromForgetPassword=false);
         IResult Delete(UserForDelete userForDelete);
         void AddAdmin();
     }
