@@ -16,5 +16,10 @@ namespace Core.Extensions
         {
             return claimsPrincipal?.Claims(ClaimTypes.Role);
         }
+        
+        public static string GetAuthenticatedUserId(this ClaimsPrincipal claimsPrincipal)
+        {
+            return claimsPrincipal?.Claims(ClaimTypes.NameIdentifier).FirstOrDefault();
+        }
     }
 }

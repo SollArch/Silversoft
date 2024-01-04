@@ -41,9 +41,9 @@ public class OtpsController : Controller
     }
     
      [HttpPost("checkotpforchangepassword")]
-     public IActionResult CheckOtpForChangePassword([FromBody] CheckOtpAndChangePasswordDto checkOtpAndChangePasswordDto)
+     public IActionResult CheckOtpForChangePassword([FromBody] CheckOtpForChangePasswordDto checkOtpForChangePasswordDto)
      {
-         var result = _authService.ChangePassword(checkOtpAndChangePasswordDto.ChangePasswordDto,checkOtpAndChangePasswordDto.CheckOtpDto);
+         var result = _authService.ChangePassword(checkOtpForChangePasswordDto);
          if (result.Success)
          {
              return Ok(result.Message);

@@ -4,7 +4,7 @@ using Entities.Concrete;
 
 namespace DataAccess.Abstract;
 
-public interface IPasswordDal : IEntityRepository<AdminPassword>
+public interface IAdminPasswordDal : IEntityRepository<AdminPassword>
 {
     
 }

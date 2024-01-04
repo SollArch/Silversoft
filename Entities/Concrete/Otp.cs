@@ -5,8 +5,8 @@ namespace Entities.Concrete
 {
     public class Otp : IEntity
     {
-        public int OtpId { get; set; }
-        public string UserName { get; set; }
+        public Guid OtpId { get; set; }
+        public string Email { get; set; }
         public string OneTimePassword { get; set; }
         public DateTime ExpirationDate { get; set; }
     }

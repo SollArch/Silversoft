@@ -1,10 +1,11 @@
+using System;
 using Business.Constants;
 using Business.Rules.Abstract;
 using Core.Entities.Concrete;
 using Core.Exceptions;
 using Core.Utilities.Security.Hashing;
 using DataAccess.Abstract;
-using Entities.DTO.Post.Auth;
+using Entities.DTO.Post.Otp;
 
 namespace Business.Rules
 {
@@ -16,9 +17,8 @@ namespace Business.Rules
         {
             _userDal = userDal;
         }
-
-
-        public void CheckIfStudentNumberExist(string studentNumber, int userId = 0)
+        
+        public void CheckIfStudentNumberExist(string studentNumber, Guid userId = default)
         {
             
             var result = _userDal.Get(u => u.StudentNumber.Equals(studentNumber));
@@ -28,7 +28,7 @@ namespace Business.Rules
             }
         }
 
-        public void CheckIfEmailExist(string userEmail, int userId = 0)
+        public void CheckIfEmailExist(string userEmail, Guid userId = default)
         {
             var result = _userDal.Get(u => u.Email.Equals(userEmail));
             if (result != null && result.UserId != userId)
@@ -38,7 +38,7 @@ namespace Business.Rules
             
         }
 
-        public void CheckIfUserNameExist(string userName, int userId = 0)
+        public void CheckIfUserNameExist(string userName, Guid userId = default)
         {
             var result = _userDal.Get( u => u.UserName.Equals(userName));
             if (result != null && result.UserId != userId)
@@ -47,7 +47,7 @@ namespace Business.Rules
             }
         }
 
-        public void CheckIfUserNotExist(int userId)
+        public void CheckIfUserNotExist(Guid userId)
         {
             var result = _userDal.Get(u => u.UserId.Equals(userId));
             if (result == null)
@@ -82,11 +82,30 @@ namespace Business.Rules
 
         }
 
-        public void CheckIfPasswordsSame(ChangePasswordDto changePasswordDto)
+        public void CheckIfPasswordsSame(CheckOtpForChangePasswordDto checkOtpForChangePasswordDto)
         {
-            if(changePasswordDto.NewPassword == changePasswordDto.CurrentPassword)
+            if(checkOtpForChangePasswordDto.NewPassword == checkOtpForChangePasswordDto.CurrentPassword)
                 throw new BusinessException(Messages.PasswordsSame);
 
+        }
+
+        public void CheckIfRequestForUpdate(User user)
+        {
+            var userFromDatabase = _userDal.Get(u => u.UserId.Equals(user.UserId));
+            if (user.PasswordHash != null) return;
+            user.PasswordHash = userFromDatabase.PasswordHash;
+            user.PasswordSalt = userFromDatabase.PasswordSalt;
+            user.Point = userFromDatabase.Point;
+            user.Status = userFromDatabase.Status;
+            user.Email = userFromDatabase.Email;
+        }
+
+        public void CheckIfUpdateUserIdEqualsRequestUserId(Guid userId, Guid requestUserId)
+        {
+            if (userId != requestUserId)
+            {
+                throw new BusinessException(Messages.AuthorizationDenied);
+            }
         }
     }
 }

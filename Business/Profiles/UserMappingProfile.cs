@@ -1,7 +1,7 @@
 using AutoMapper;
 using Core.Entities.Concrete;
-using Core.Utilities.Results;
 using Entities.DTO.Get;
+using Entities.DTO.Post.Otp;
 using Entities.DTO.Post.User;
 
 namespace Business.Profiles;
@@ -13,6 +13,7 @@ public class UserMappingProfile : Profile
         CreateMap<User, UserGetDto>().ReverseMap();
         CreateMap<User, UserForUpdate>().ReverseMap();
         CreateMap<User, UserForDelete>().ReverseMap();
+       
 
     }
 }

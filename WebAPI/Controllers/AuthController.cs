@@ -62,7 +62,7 @@ public class AuthController : Controller
     [HttpPost("forgotpassword")]
     public IActionResult ForgotPassword([FromBody] ForgotPasswordDto forgotPasswordDto)
     {
-        var user = _userService.GetByEmail(forgotPasswordDto.Email).Data;
+        var user = _userService.GetByEmailWithDto(forgotPasswordDto.Email).Data;
         var sendOtpDto = new SendOtpDto
         {
             Email = forgotPasswordDto.Email,
@@ -76,7 +76,7 @@ public class AuthController : Controller
     [HttpPost("changepassword")]
     public IActionResult ChangePassword([FromBody] ChangePasswordDtoOnlyEmail changePasswordDtoOnlyEmail)
     {
-        var user = _userService.GetByEmail(changePasswordDtoOnlyEmail.Email).Data;
+        var user = _userService.GetByEmailWithDto(changePasswordDtoOnlyEmail.Email).Data;
         var sendOtpDto = new SendOtpDto
         {
             Email = changePasswordDtoOnlyEmail.Email,

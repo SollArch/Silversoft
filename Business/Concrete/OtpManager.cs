@@ -20,29 +20,31 @@ namespace Business.Concrete
         private readonly IMailService _mailService;
         private readonly IUserService _userService;
         private readonly IOtpRules _otpRules;
-        private readonly IPasswordService _passwordService;
-        public OtpManager(IMailService mailService, IOtpDal otpDal, IUserService userService, IOtpRules otpRules, IPasswordService passwordService)
+        private readonly IAdminPasswordService _adminPasswordService;
+
+        public OtpManager(IMailService mailService, IOtpDal otpDal, IUserService userService, IOtpRules otpRules, IAdminPasswordService adminPasswordService)
         {
             _mailService = mailService;
             _otpDal = otpDal;
             _userService = userService;
             _otpRules = otpRules;
-            _passwordService = passwordService;
+            _adminPasswordService = adminPasswordService;
         }
 
         public IDataResult<User> CheckOtp(CheckOtpDto checkOtpDto)
         {
-            var otp = GetByUserName(checkOtpDto.UserName).Data;
+            var otp = GetByEmail(checkOtpDto.Email).Data;
             _otpRules.CheckIfOtpNull(otp);
             _otpRules.CheckIfOtpExpired(otp.ExpirationDate);
             _otpRules.CheckIfOtpMatch(otp.OneTimePassword, checkOtpDto.Otp);
-            var userResult = _userService.GetByUserName(checkOtpDto.UserName);
+            var userResult = _userService.GetByEmail(checkOtpDto.Email);
             _otpDal.Delete(otp);
             return userResult;
         }
 
         public IResult SendOtp(SendOtpDto sendOtpDto)
         {
+            _otpRules.CheckIfOtpSentBefore(sendOtpDto.Email);
             var mail = new Mail
             {
                 ToEmail = sendOtpDto.Email,
@@ -52,12 +54,13 @@ namespace Business.Concrete
             };
             var otp = new Otp
             {
-                UserName = sendOtpDto.UserName,
+                OtpId  = Guid.NewGuid(),
+                Email = sendOtpDto.Email,
                 OneTimePassword = sendOtpDto.Otp,
                 ExpirationDate = DateTime.Now.AddMinutes(30)
             };
             _otpDal.Add(otp);
-            _mailService.Send(mail,_passwordService.GetPassword());
+            _mailService.Send(mail,_adminPasswordService.GetPassword());
             return new SuccessResult(Messages.OtpSended);
         }
 
@@ -74,9 +77,9 @@ namespace Business.Concrete
         }
 
         [CacheAspect]
-        public IDataResult<Otp> GetByUserName(string userName)
+        private IDataResult<Otp> GetByEmail(string email)
         {
-            return new SuccessDataResult<Otp>(_otpDal.Get(o => o.UserName == userName));
+            return new SuccessDataResult<Otp>(_otpDal.Get(o => o.Email == email));
         }
     }
 }

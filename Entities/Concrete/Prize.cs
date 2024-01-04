@@ -1,10 +1,11 @@
+using System;
 using Core.Entities.Abstract;
 
 namespace Entities.Concrete
 {
     public class Prize : IEntity
     {
-        public int PrizeId { get; set; }
+        public Guid PrizeId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }

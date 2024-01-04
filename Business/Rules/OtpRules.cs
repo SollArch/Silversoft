@@ -34,7 +34,7 @@ namespace Business.Rules
         
         public void CheckIfUserHasOtp(string userName)
         {
-            var otp = _otpDal.Get(o => o.UserName.Equals(userName));
+            var otp = _otpDal.Get(o => o.Email.Equals(userName));
             if (otp != null)
             {
                 throw new BusinessException(Messages.UserHasOtp);
@@ -46,6 +46,13 @@ namespace Business.Rules
         {
             if(otp == null)
                 throw new BusinessException(Messages.OtpNotFound);
+        }
+
+        public void CheckIfOtpSentBefore(string email)
+        {
+            var otp = _otpDal.Get(o => o.Email.Equals(email));
+            if (otp != null)
+                throw new BusinessException(Messages.OtpSendedBefore);
         }
     }
 }

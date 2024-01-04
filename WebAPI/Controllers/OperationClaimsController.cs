@@ -28,7 +28,7 @@ public class OperationClaimsController : Controller
     }
     
     [HttpGet("getbyid/{id}")]
-    public IActionResult GetById([FromRoute]int id)
+    public IActionResult GetById([FromRoute]Guid id)
     {
         var result = _operationClaimService.GetById(id);
         if (result.Success)

@@ -7,20 +7,20 @@ namespace WebApPI.Controllers;
 [ApiController]
 public class AdminPasswordController :Controller
 {
-    private readonly IPasswordService _passwordService;
+    private readonly IAdminPasswordService _adminPasswordService;
 
-    public AdminPasswordController(IPasswordService passwordService)
+    public AdminPasswordController(IAdminPasswordService adminPasswordService)
     {
-        _passwordService = passwordService;
+        _adminPasswordService = adminPasswordService;
     }
 
     [HttpPost("add/{password}")]
     public IActionResult Add([FromRoute] string password)
     {
-        var result = _passwordService.AddPassword(password);
+        var result = _adminPasswordService.AddPassword(password);
         if (result.Success)
         {
-            return Ok();
+            return Ok(result);
         }
 
         return BadRequest(result);

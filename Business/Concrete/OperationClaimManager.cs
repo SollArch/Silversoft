@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
-using Business.Constants;   
+using Business.Constants;
 using Business.Rules.Abstract;
 using Business.ValidationRules.FluentValdation;
 using Core.Aspects.Autofac.Caching;
@@ -22,14 +23,14 @@ namespace Business.Concrete
             _operationClaimDal = operationClaimDal;
             _operationClaimRules = operationClaimRules;
         }
-        
+
         [SecuredOperation("admin")]
         [ValidationAspect(typeof(OperationClaimValidator))]
         [CacheRemoveAspect("IOperationClaimService.Get")]
         public IResult Add(OperationClaim operationClaim)
         {
             _operationClaimRules.CheckIfNameExist(operationClaim.OperationClaimName);
-
+            operationClaim.OperationClaimId = Guid.NewGuid();
             _operationClaimDal.Add(operationClaim);
             return new SuccessResult(Messages.OperationClaimAdded);
         }
@@ -54,7 +55,7 @@ namespace Business.Concrete
         }
 
         [CacheAspect]
-        public IDataResult<OperationClaim> GetById(int operationClaimId)
+        public IDataResult<OperationClaim> GetById(Guid operationClaimId)
         {
             return new SuccessDataResult<OperationClaim>(_operationClaimDal.Get(c =>
                 c.OperationClaimId == operationClaimId));
@@ -78,7 +79,8 @@ namespace Business.Concrete
             if (_operationClaimDal.Get(c => c.OperationClaimName.Equals("admin")) != null) return;
             var claim = new OperationClaim
             {
-                OperationClaimName = "admin"
+                OperationClaimName = "admin",
+                OperationClaimId = Guid.Parse("b1b0a3e3-0b7a-4e1f-8f1a-9c4b1e1b0b1b")
             };
             _operationClaimDal.Add(claim);
         }

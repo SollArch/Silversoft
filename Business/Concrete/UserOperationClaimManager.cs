@@ -1,3 +1,4 @@
+using System;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
@@ -21,6 +22,7 @@ namespace Business.Concrete
         [CacheRemoveAspect("IUserOperationClaimService.Get, IUserService.GetClaims")]
         public IResult Add(UserOperationClaim userOperationClaim)
         {
+            userOperationClaim.UserOperationClaimId = Guid.NewGuid();
             _userOperationClaimDal.Add(userOperationClaim);
             return new SuccessResult(Messages.UserOperationClaimAdded);
         }
@@ -40,28 +42,14 @@ namespace Business.Concrete
             _userOperationClaimDal.Delete(userOperationClaim);
             return new SuccessResult(Messages.UserOperationClaimDeleted);
         }
-
-
-        [CacheAspect]
-        public IDataResult<UserOperationClaim> GetById(int userOperationClaimId)
-        {
-            return new SuccessDataResult<UserOperationClaim>(_userOperationClaimDal.Get(c =>
-                c.UserOperationClaimId == userOperationClaimId));
-        }
-
-        [CacheAspect]
-        public IDataResult<UserOperationClaim> GetByUserId(int userId)
-        {
-            return new SuccessDataResult<UserOperationClaim>(_userOperationClaimDal.Get(c => c.UserId == userId));
-        }
-
+        
         public void AddAdminClaimToAdminUser()
         {
-            if(_userOperationClaimDal.Get(c => c.UserId == 1) != null) return;
+            if(_userOperationClaimDal.GetAll().Count != 0) return;
             var adminUserOperationClaim = new UserOperationClaim
             {
-                UserId = 1,
-                OperationClaimId = 1
+                UserId = Guid.Parse("b1b0a3e3-0b7a-4e1f-8f1a-9c4b1e1b0b1b"),
+                OperationClaimId = Guid.Parse("b1b0a3e3-0b7a-4e1f-8f1a-9c4b1e1b0b1b")
             };
             _userOperationClaimDal.Add(adminUserOperationClaim);
         }

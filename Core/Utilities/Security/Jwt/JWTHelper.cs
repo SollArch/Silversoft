@@ -8,6 +8,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using Core.Extensions;
+using Core.Utilities.IoC;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Utilities.Security.Jwt
 {
@@ -16,11 +19,15 @@ namespace Core.Utilities.Security.Jwt
         private IConfiguration Configuration { get; }
         private readonly TokenOptions _tokenOptions;
         private DateTime _accessTokenExpiration;
+        private static IHttpContextAccessor _httpContextAccessor;
+
         public JwtHelper(IConfiguration configuration)
         {
             Configuration = configuration;
             _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+            _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
         }
+
         public AccessToken CreateToken(User user, List<OperationClaim> operationClaims)
         {
             _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
@@ -35,7 +42,6 @@ namespace Core.Utilities.Security.Jwt
                 Token = token,
                 Expiration = _accessTokenExpiration
             };
-
         }
 
         public JwtSecurityToken CreateJwtSecurityToken(TokenOptions tokenOptions, User user,
@@ -63,6 +69,9 @@ namespace Core.Utilities.Security.Jwt
             return claims;
         }
 
-
+        public static Guid GetAuthenticatedUserId()
+        {
+            return Guid.Parse(_httpContextAccessor.HttpContext.User.GetAuthenticatedUserId());
+        }
     }
 }

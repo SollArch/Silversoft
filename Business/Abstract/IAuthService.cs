@@ -13,7 +13,7 @@ namespace Business.Abstract
         IDataResult<User> Login(UserForLoginDto userForLoginDto);
         IResult UserExists(UserForRegisterDto user);
         IDataResult<AccessToken> CreateAccessToken(User user);
-        IResult ChangePassword(ChangePasswordDto changePasswordDto, CheckOtpDto checkOtpDto);
+        IResult ChangePassword(CheckOtpForChangePasswordDto checkOtpForChangePasswordDto);
         IResult ForgotPassword(ForgotPasswordDto forgotPasswordDto);
         
     }

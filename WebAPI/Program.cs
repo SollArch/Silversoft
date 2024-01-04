@@ -1,16 +1,14 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
-using Business.Concrete;
+using Business.Abstract;
 using Business.DependencyResolvers.Autofac;
 using Business.Profiles;
-using Business.Rules;
 using Core.DependencyResolver;
 using Core.Extensions;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.Jwt;
-using DataAccess.Concrete.EntityFramework;
 using DataAccess.Context;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -19,12 +17,6 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<DatabaseContext>();
 
-var claimManager = new OperationClaimManager(new EfOperationClaimDal(), new OperationClaimRules(new EfOperationClaimDal()));
-claimManager.AddAdminClaim();
-var userManager = new UserManager(new EfUserDal(),new UserRules(new EfUserDal()));
-userManager.AddAdmin();
-var userOperationClaimManager = new UserOperationClaimManager(new EfUserOperationClaimDal());
-userOperationClaimManager.AddAdminClaimToAdminUser();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
@@ -45,6 +37,10 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).Conf
 var mappingConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new UserMappingProfile());
+    mc.AddProfile(new BlogMappingProfile());
+    mc.AddProfile(new CtfMappingProfile());
+    mc.AddProfile(new CloudinaryConnectionMappingProfile());
+    mc.AddProfile(new OtpMappingProfile());
 });
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -86,6 +82,21 @@ builder.Services.AddSwaggerGen(opt =>
 IMapper mapper = mappingConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    
+    // Burada servisleri kullanabilirsiniz
+    var claimManager = serviceProvider.GetRequiredService<IOperationClaimService>();
+    claimManager.AddAdminClaim();
+
+    var userManager = serviceProvider.GetRequiredService<IUserService>();
+    userManager.AddAdmin();
+
+    var userOperationClaimManager = serviceProvider.GetRequiredService<IUserOperationClaimService>();
+    userOperationClaimManager.AddAdminClaimToAdminUser();
+}
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

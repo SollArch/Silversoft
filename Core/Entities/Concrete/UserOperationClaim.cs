@@ -1,11 +1,12 @@
-﻿using Core.Entities.Abstract;
+﻿using System;
+using Core.Entities.Abstract;
 
 namespace Core.Entities.Concrete
 {
     public class UserOperationClaim : IEntity
     {
-        public int UserOperationClaimId { get; set; }
-        public int UserId { get; set; }
-        public int OperationClaimId { get; set; }
+        public Guid UserOperationClaimId { get; set; }
+        public Guid UserId { get; set; }
+        public Guid OperationClaimId { get; set; }
     }
 }

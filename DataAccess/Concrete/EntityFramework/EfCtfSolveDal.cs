@@ -5,7 +5,7 @@ using Entities.Concrete;
 
 namespace DataAccess.Concrete.EntityFramework;
 
-public class EfPasswordDal : EfEntityRepositoryBase<AdminPassword,DatabaseContext>,IPasswordDal
+public class EfCtfSolveDal : EfEntityRepositoryBase<CtfSolve,DatabaseContext>,ICtfSolveDal
 {
     
 }
